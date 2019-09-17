@@ -4,9 +4,9 @@
 // SC_THREAD(generate)
 // sensitive(next_packet)
 void packet_gen::generate( void )
-{  
-int i=0;
- int nba; 
+{
+	int i=0;
+	int nba;
 	while (i < 8)
 	{
  		packet_ready = false;
@@ -33,7 +33,7 @@ int i=0;
 		packet_ready = false;
 		
 		delete pkt;
-	i++;
+		i++;
 	}
 	
 }

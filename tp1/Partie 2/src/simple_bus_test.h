@@ -52,16 +52,21 @@ SC_MODULE(simple_bus_test)
 	sc_clock C1;
 
 	// Signaux entre Gen et Routeur
-	//A COMPLETER
+	sc_signal<Packet*> packet_GR;
+	sc_signal<bool> packet_ready;
+	sc_signal<bool> next_packet;
 
 	// Signaux entre adaptateur de coprocesseur 1 et coprocesseur 1
-	//A COMPLETER
+	sc_signal<Packet*> packet_DS;
+	sc_signal<bool> ack_DS;
+	sc_signal<bool> ready_DS;
 
 	// Signaux entre adaptateur de coprocesseur 2 et coprocesseur 2
-	//A COMPLETER
+	sc_fifo<Packet*> packet_DS2;
 
 	// Signaux entre adaptateur de coprocesseur 3 et coprocesseur 3
-	//A COMPLETER
+	sc_buffer<Packet*> packet_DS3;
+	sc_signal<bool> ack_DS3;
 
 	// Signaux entre Display et coprocesseurs
 	sc_signal<bool, sc_core::SC_MANY_WRITERS> msg_valid;
@@ -76,15 +81,16 @@ SC_MODULE(simple_bus_test)
 	packet_gen_adapt				   *packet_gen_adapt;
 	simple_bus					       *bus;
 	simple_bus_arbiter                 *arbiter;
-	copro1							   *copro1
+	copro1							   *copro1;
 	copro1_adapt					   *copro1_adapt;
-	copro2                             *copro1
+	copro2                             *copro2;
 	copro2_adapt					   *copro2_adapt;
-	copro3                             *copro3
+	copro3                             *copro3;
 	copro3_adapt					   *copro3_adapt;	
 	display							   *dply;
 
 	//A COMPLETER
+
 
 	// constructor
 	SC_CTOR(simple_bus_test)
@@ -103,8 +109,12 @@ SC_MODULE(simple_bus_test)
 		gen = new packet_gen("packet_gen");
 		copro1 = new station("copro1");
 		dply = new display("display");
-
-		//A COMPLETER
+		copro1_adapt = new copro1_adapt("copro1_adapt");
+		packet_gen_adapt = new packet_gen_adapt("packet_gen_adapt");
+		copro2 = new copro2("copro2");
+		copro2_adapt = new copro2_adapt("copro2_adapt");
+		copro3 = new copro3("copro3");
+		copro3_adapt = new copro3_adapt("copro3_adapt");
 
 		// connect instances
 		
@@ -127,6 +137,14 @@ SC_MODULE(simple_bus_test)
 		dply->input_message(display_message);
 		dply->input_packet(display_packet);
 		dply->display_ready(display_ready);
+
+		copro1_adapt->packet_in(packet_DS);
+		copro1_adapt->ack(ack_DS);
+		copro1_adapt->ready(ready_DS);
+
+		packet_gen_adapt->packet_ready(packet_ready);
+		packet_gen_adapt->next_packet(next_packet);
+		packet_gen_adapt->packet_in(packet_GR);
 
 		//A COMPLETER
 

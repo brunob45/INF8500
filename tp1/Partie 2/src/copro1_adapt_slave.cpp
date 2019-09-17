@@ -1,6 +1,6 @@
 #include "copro1_adapt_slave.h"
 
-void copro1_adapt_slave::~copro1_adapt_slave()
+copro1_adapt_slave::~copro1_adapt_slave()
 {
 	//A COMPLETER
 }
@@ -17,7 +17,10 @@ simple_bus_status copro1_adapt_slave::read(int *data, unsigned int address)
 }
 simple_bus_status copro1_adapt_slave::write(int *data, unsigned int address)
 {
-	//A COMPLETER
+	packet_out = &data;
+	ready_copro1 = true;
+	wait(ack_copro1.posedge_event()); // Attendre ack == true
+	ready_copro1 = false;
 }
 void copro1_adapt_slave::dispatch()
 {
@@ -31,6 +34,7 @@ unsigned int  copro1_adapt_slave::end_address() const
 {
 	//A COMPLETER
 }
-void copro1_adapt_slave::pkt_send1(void){
+void copro1_adapt_slave::pkt_send1(void)
+{
 	//A COMPLETER
 }

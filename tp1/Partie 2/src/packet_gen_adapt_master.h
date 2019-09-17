@@ -13,7 +13,14 @@ SC_MODULE(packet_gen_adapt_master)
 	// MODULE PORTS
 	******************************************************************** */
 	sc_in_clk clock;
-	//A COMPLETER
+	sc_port<simple_bus_blocking_if> bus_port;
+	
+	// signal indiquant que le routeur est prêt à recevoir un nouveau paquet
+	sc_in<bool> next_packet;
+	// Sortie indiquant qu'un paquet est prêt pour le routeur
+	sc_out<bool> packet_ready;
+	// Sortie du paquet à transmettre au routeur
+    sc_out<Packet*> packet_out;
 
 	/* *******************************************************************
 	// LOCAL VARIABLES

@@ -1,6 +1,6 @@
 #include "copro3_adapt_slave.h"
 
-void copro3_adapt_slave::~copro3_adapt_slave()
+copro3_adapt_slave::~copro3_adapt_slave()
 {
 	//A COMPLETER
 }
