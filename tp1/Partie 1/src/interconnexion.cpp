@@ -2,8 +2,8 @@
 #include "globals.h"
 #include <string.h>
 
-void interconnexion::pkt_dispatch(void){
-	
+void interconnexion::pkt_dispatch(void)
+{
 	int addr;
 
 	while (true)
@@ -37,24 +37,24 @@ void interconnexion::pkt_dispatch(void){
 	}
 }
 
-void interconnexion::pkt_send1(void){
+void interconnexion::pkt_send1(void)
+{
 	packet_out = &pkt;
 	ready_copro1 = true;
 	wait(ack_copro1.posedge_event()); // Attendre ack == true
 	ready_copro1 = false;
 }
 
-void interconnexion::pkt_send2(void){
-	
+void interconnexion::pkt_send2(void)
+{
 	fifo_out.write(&pkt);
-
+	wait(10, SC_NS);
 }
 
-void interconnexion::pkt_send3(void){	
-
+void interconnexion::pkt_send3(void)
+{
 	buffer_out.write(&pkt);
 	
 	//Attendre que le copro3 soit pret
 	wait(ack_copro3.posedge_event()); // Attendre ack == true
-
 }
