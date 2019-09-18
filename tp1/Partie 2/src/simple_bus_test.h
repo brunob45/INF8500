@@ -110,7 +110,7 @@ SC_MODULE(simple_bus_test)
 		copro1 = new station("copro1");
 		dply = new display("display");
 		copro1_adapt = new copro1_adapt("copro1_adapt");
-		packet_gen_adapt = new packet_gen_adapt("packet_gen_adapt");
+		packet_gen_adapt = new packet_gen_adapt("packet_gen_adapt", 0, 256, 2);
 		copro2 = new copro2("copro2");
 		copro2_adapt = new copro2_adapt("copro2_adapt");
 		copro3 = new copro3("copro3");
@@ -125,22 +125,40 @@ SC_MODULE(simple_bus_test)
 		gen->next_packet(next_packet);
 		gen->packet_out(packet_GR);
 
-		copro1->packet_out(packet_DS);
+		copro1->packet_in(packet_DS);
 		copro1->ready(ready_DS);
 		copro1->ack(ack_DS);
 		copro1->msg_valid(msg_valid);
 		copro1->output_msg(display_message);
 		copro1->output_pkt(display_packet);
 		copro1->display_ready(display_ready);
+
+		copro2->packet_in(packet_DS2);
+		copro2->msg_valid(msg_valid);
+		copro2->output_msg(display_message);
+		copro2->output_pkt(display_packet);
+		copro2->display_ready(display_ready);
+
+		copro3->packet_in(packet_DS3);
+		copro3->ack(ack_DS3);
+		copro3->msg_valid(msg_valid);
+		copro3->output_msg(display_message);
+		copro3->output_pkt(display_packet);
+		copro3->display_ready(display_ready);
 		
 		dply->msg_valid(msg_valid);
 		dply->input_message(display_message);
 		dply->input_packet(display_packet);
 		dply->display_ready(display_ready);
 
-		copro1_adapt->packet_in(packet_DS);
+		copro1_adapt->packet_out(packet_DS);
 		copro1_adapt->ack(ack_DS);
-		copro1_adapt->ready(ready_DS);
+		copro1_adapt->reaSC_MANY_WRITERSdy(ready_DS);
+
+		copro2_adapt->packet_out(packet_DS2);
+
+		copro2_adapt->packet_out(packet_DS3);
+		copro2_adapt->ack(ack_DS3);
 
 		packet_gen_adapt->packet_ready(packet_ready);
 		packet_gen_adapt->next_packet(next_packet);

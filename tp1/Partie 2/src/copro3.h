@@ -9,7 +9,7 @@ SC_MODULE(copro3)
 	/* *******************************************************************
 	// MODULE PORTS
 	******************************************************************** */
-	// Le paquet provenant de l'interconnexion 
+	// Le paquet provenant de adapt_copro3
 	sc_in<Packet*> buffer_in;
 
 	sc_out<bool> ack;

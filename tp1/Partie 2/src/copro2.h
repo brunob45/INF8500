@@ -9,7 +9,7 @@ SC_MODULE(copro2)
 	/* *******************************************************************
 	// MODULE PORTS
 	******************************************************************** */
-	// Le paquet provenant de l'interconnexion 
+	// Le paquet provenant de l'adaptateur 
 	sc_fifo_in<Packet*> fifo_in;
 	
 	// Signal indiquant au display qu'il y a un message à traiter

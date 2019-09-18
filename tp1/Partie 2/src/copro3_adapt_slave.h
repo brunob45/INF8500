@@ -18,7 +18,11 @@ public:
 	******************************************************************** */
 	sc_in_clk clock;
 
-	//A COMPLETER
+	// Le paquet a destination du copro3
+	sc_out<Packet*> buffer_out;
+
+	// Signal provenant du copro3 et indiquant que le paquet a été traité
+	sc_in<bool> ack;
 
 	/* *******************************************************************
 	// MODULE METHODS

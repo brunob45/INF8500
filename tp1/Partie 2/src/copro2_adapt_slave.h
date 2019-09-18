@@ -18,7 +18,8 @@ public:
 	******************************************************************** */
 	sc_in_clk clock;
 
-	//A COMPLETER
+	// La fifo paquet a destination du copro2 
+	sc_fifo_out<Packet*> fifo_out;
 
 	/* *******************************************************************
 	// MODULE METHODS
@@ -47,15 +48,21 @@ public:
 		, m_start_address(start_address)
 		, m_end_address(end_address)
 		, m_nr_wait_states(nr_wait_states)
-		, packet_dispatched(1)
+		, packet_dispatched(true)
 		, m_wait_count(-1)
 	{
 		SC_THREAD(dispatch);
-		//A COMPLETER
+
 		SC_METHOD(access_time);
 		dont_initialize();
-		//A COMPLETER
-
+		sensitive << clock.pos();
+		
+    	sc_assert(m_start_address <= m_end_address);
+		sc_assert((m_end_address-m_start_address+1)%4 == 0);
+    	unsigned int size = (m_end_address-m_start_address+1)/4;
+    	MEM = new int [size];
+    	for (unsigned int i = 0; i < size; ++i)
+      		MEM[i] = 0;
 
 	}
 	/* *******************************************************************
@@ -67,13 +74,14 @@ public:
 	******************************************************************** */
 private:
 	sc_event start_dispatch;
-	int packet_dispatched;
+	bool packet_dispatched;
 	Packet *packet;
 	unsigned int *MEM;
 	unsigned int m_start_address;
 	unsigned int m_end_address;
 	int m_wait_count;
 	unsigned int m_nr_wait_states;
+	unsigned int last_address;
 };
 
 #endif

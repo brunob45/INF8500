@@ -10,11 +10,12 @@ SC_MODULE(copro1)
 	// MODULE PORTS 
 	******************************************************************** */
 	// Le paquet provenant de l'interconnexion 
-	sc_in<Packet*> packet_out;
+	sc_in<Packet*> packet_in;
 	// Entrée provenant de l'interconnexion  et indiquant qu'il y a un paquet à traiter
 	sc_in<bool> ready;
 	// Signal indiquant au l'interconnexion que le paquet a été traité
 	sc_out<bool> ack;
+	
 	// Signal indiquant au display qu'il y a un message à traiter
 	sc_out<bool> msg_valid;
 	// Sortie d'une chaîne de caractères pour le display
