@@ -36,6 +36,8 @@ public:
 	// Slave Interface (Méthodes de l'interface à implémenter)
 	simple_bus_status read(int *data, unsigned int address);
 	simple_bus_status write(int *data, unsigned int address);
+	bool direct_read(int *data, unsigned int address) override { return read(data, address) == SIMPLE_BUS_OK; }
+	bool direct_write(int *data, unsigned int address) override { return write(data, address) == SIMPLE_BUS_OK; }
 	unsigned int start_address() const;
 	unsigned int end_address() const;
 
@@ -48,7 +50,7 @@ public:
 	copro1_adapt_slave(sc_module_name name_
 		, unsigned int start_address
 		, unsigned int end_address
-		,unsigned int nr_wait_states)
+		, unsigned int nr_wait_states)
 		: sc_module(name_)
 		, m_start_address(start_address)
 		, m_end_address(end_address)
@@ -67,7 +69,7 @@ public:
 	/* *******************************************************************
 	// MODULE DESTRUCTOR
 	******************************************************************** */
-	~copro3_adapt_slave();
+	~copro1_adapt_slave();
 	/* *******************************************************************
 	// LOCAL VARIABLES
 	******************************************************************** */

@@ -37,7 +37,7 @@ SC_MODULE(packet_gen)
 		// generate est un thread
 		SC_THREAD(generate);
 		// generate est sensible à next_packet
-		sensitive(next_packet);		
+		sensitive(next_packet);
 	}
 };
 

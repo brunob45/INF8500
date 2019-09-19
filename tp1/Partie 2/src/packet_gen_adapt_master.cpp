@@ -23,7 +23,7 @@ void packet_gen_adapt_master::pkt_dispatch(void)
 		addr = pkt.getAddress();
 
 		//Utiliser la bonne méthode d'envoi selon l'adresse
-		status = bus_port->burst_write(8, pkt, addr, 6);
+		status = bus_port->burst_write(8, (int*)pkt.getPacket(), addr, 6);
 		
 		if (status == SIMPLE_BUS_ERROR)
 			sb_fprintf(stdout, "%s %s : blocking-write failed at address %x\n",

@@ -17,7 +17,7 @@ simple_bus_status copro3_adapt_slave::read(int *data, unsigned int address)
 }
 simple_bus_status copro3_adapt_slave::write(int *data, unsigned int address)
 {
-	//A COMPLETER
+	return SIMPLE_BUS_OK;
 }
 void copro3_adapt_slave::dispatch()
 {
@@ -25,11 +25,11 @@ void copro3_adapt_slave::dispatch()
 }
 unsigned int  copro3_adapt_slave::start_address() const
 {
-	//A COMPLETER
+	return m_start_address;
 }
 unsigned int  copro3_adapt_slave::end_address() const
 {
-	//A COMPLETER
+	return m_end_address;
 }
 void copro3_adapt_slave::pkt_send3(void){
 	//A COMPLETER

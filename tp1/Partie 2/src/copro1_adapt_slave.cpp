@@ -17,22 +17,23 @@ simple_bus_status copro1_adapt_slave::read(int *data, unsigned int address)
 }
 simple_bus_status copro1_adapt_slave::write(int *data, unsigned int address)
 {
-	packet_out = &data;
-	ready_copro1 = true;
-	wait(ack_copro1.posedge_event()); // Attendre ack == true
-	ready_copro1 = false;
+	// packet_out = &data;
+	// ready_copro1 = true;
+	// wait(ack_copro1.posedge_event()); // Attendre ack == true
+	// ready_copro1 = false;
+	return SIMPLE_BUS_OK;
 }
 void copro1_adapt_slave::dispatch()
 {
 	//A COMPLETER
 }
-unsigned int  copro1_adapt_slave::start_address() const
+unsigned int copro1_adapt_slave::start_address() const
 {
-	//A COMPLETER
+	return m_start_address;
 }
 unsigned int  copro1_adapt_slave::end_address() const
 {
-	//A COMPLETER
+	return m_end_address;
 }
 void copro1_adapt_slave::pkt_send1(void)
 {

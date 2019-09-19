@@ -15,7 +15,7 @@ void copro1::pkt_display()
 		wait(ready.posedge_event()); // Attendre ready == true
 		cout << "COPRO1 : paquet pret" << endl;
 		cout << "COPRO1 : Recuperation du paquet" << endl;
-		pkt = *packet_out;
+		pkt = *packet_in;
 		cout << "COPRO1 : Acquittement" << endl;
 		ack = true;
 		

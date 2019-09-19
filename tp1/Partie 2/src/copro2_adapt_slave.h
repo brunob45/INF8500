@@ -31,6 +31,8 @@ public:
 	// Slave Interface (Méthodes de l'interface à implémenter)
 	simple_bus_status read(int *data, unsigned int address);
 	simple_bus_status write(int *data, unsigned int address);
+	bool direct_read(int *data, unsigned int address) override { return read(data, address) == SIMPLE_BUS_OK; }
+	bool direct_write(int *data, unsigned int address) override { return write(data, address) == SIMPLE_BUS_OK; }
 	unsigned int start_address() const;
 	unsigned int end_address() const;
 
@@ -60,7 +62,7 @@ public:
     	sc_assert(m_start_address <= m_end_address);
 		sc_assert((m_end_address-m_start_address+1)%4 == 0);
     	unsigned int size = (m_end_address-m_start_address+1)/4;
-    	MEM = new int [size];
+    	MEM = new unsigned [size];
     	for (unsigned int i = 0; i < size; ++i)
       		MEM[i] = 0;
 
