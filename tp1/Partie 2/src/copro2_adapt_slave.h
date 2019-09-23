@@ -52,20 +52,14 @@ public:
 		, m_nr_wait_states(nr_wait_states)
 		, packet_dispatched(true)
 		, m_wait_count(-1)
+        , m_current_start_address(start_address)
 	{
-		SC_THREAD(dispatch);
-
-		SC_METHOD(access_time);
-		dont_initialize();
-		sensitive << clock.pos();
-		
     	sc_assert(m_start_address <= m_end_address);
 		sc_assert((m_end_address-m_start_address+1)%4 == 0);
-    	unsigned int size = (m_end_address-m_start_address+1)/4;
-    	MEM = new unsigned [size];
-    	for (unsigned int i = 0; i < size; ++i)
-      		MEM[i] = 0;
 
+		SC_THREAD(dispatch);
+		dont_initialize();
+		sensitive << start_dispatch;
 	}
 	/* *******************************************************************
 	// MODULE DESTRUCTOR
@@ -78,12 +72,13 @@ private:
 	sc_event start_dispatch;
 	bool packet_dispatched;
 	Packet *packet;
-	unsigned int *MEM;
+	unsigned int MEM[24];
 	unsigned int m_start_address;
 	unsigned int m_end_address;
 	int m_wait_count;
 	unsigned int m_nr_wait_states;
 	unsigned int last_address;
+	unsigned int m_current_start_address;
 };
 
 #endif

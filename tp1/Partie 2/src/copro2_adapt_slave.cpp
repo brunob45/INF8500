@@ -17,49 +17,44 @@ simple_bus_status copro2_adapt_slave::read(int *data, unsigned int address)
 }
 simple_bus_status copro2_adapt_slave::write(int *data, unsigned int address)
 {
-	cout << "COPRO2 ok" << endl;
-	return SIMPLE_BUS_OK;
-// 	static unsigned int write_cnt = 6;
-// 	// accept a new call if m_wait_count < 0)
-// 	if (m_wait_count < 0)
-// 	{
-// 		m_wait_count = m_nr_wait_states;
-// 		return SIMPLE_BUS_WAIT;
-// 	}
-// 	if (m_wait_count == 0)
-// 	{
-// 		MEM[(address - m_start_address)/4] = *data;
-// 		write_cnt--;
-// 		if(write_cnt <= 0)
-// 		{
-// 			last_address = address;
-// 			write_cnt = 6;
-// 			start_dispatch.notify();
-// 		}
-// 		return SIMPLE_BUS_OK;
-//     }
-//   return SIMPLE_BUS_WAIT;
+	static int cpt = 0;
+	simple_bus_status status = SIMPLE_BUS_OK;
 
+	MEM[(address - m_start_address)/4] = *data;
+
+	if (cpt == 0)
+	{
+		status = SIMPLE_BUS_WAIT;
+		m_current_start_address = address;
+	}
+
+	cpt++;
+	if(cpt > 6)
+	{
+		cpt = 0;
+		packet_dispatched = false;
+		start_dispatch.notify();
+	}
+
+	return status;
 }
 void copro2_adapt_slave::dispatch()
 {
-	// while (true)
-	// {
-	// 	//Recupération du paquet
-	// 	packet_dispatched = true; 
-	// 	cout << "A_COPRO2 : Attente paquet pret" << endl;
-	// 	wait(start_dispatch); // Attendre ready == true
-	// 	cout << "A_COPRO2 : paquet pret" << endl;
-	// 	cout << "A_COPRO2 : Recuperation du paquet" << endl;
-	// 	unsigned* pktmem = packet->getPacket();
-	// 	for (int i = 0; i < 6; i++)
-	// 		pktmem[i] = MEM[last_address-5+i];
-	// 	packet = MEM;
-	// 	cout << "A_COPRO2 : Acquittement" << endl;
-	// 	packet_dispatched = false;
+	cout << "COPRO2 dispatch ready" << endl;
+	while(1)
+	{
+		wait(start_dispatch);
+		
+		unsigned address = (m_current_start_address - m_start_address)/4;
 
-	// 	pkt_send2();
-	// }
+		cout << "COPRO2 dispatch on address " << address << endl;
+
+		packet = new Packet(&MEM[address]);
+		pkt_send2();
+		delete packet;
+
+		packet_dispatched = true;
+	}
 }
 unsigned int  copro2_adapt_slave::start_address() const
 {

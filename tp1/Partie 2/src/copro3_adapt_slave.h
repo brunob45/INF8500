@@ -56,13 +56,12 @@ public:
         , m_wait_count(-1)
         , m_current_start_address(start_address)
     {
-        SC_THREAD(dispatch);
-        dont_initialize();
-        sensitive << start_dispatch;
+    	sc_assert(m_start_address <= m_end_address);
+		sc_assert((m_end_address-m_start_address+1)%4 == 0);
 
-        SC_METHOD(access_time);
-        dont_initialize();
-
+		SC_THREAD(dispatch);
+		dont_initialize();
+		sensitive << start_dispatch;
     }
     /* *******************************************************************
     // MODULE DESTRUCTOR

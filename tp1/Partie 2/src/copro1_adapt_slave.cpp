@@ -17,16 +17,44 @@ simple_bus_status copro1_adapt_slave::read(int *data, unsigned int address)
 }
 simple_bus_status copro1_adapt_slave::write(int *data, unsigned int address)
 {
-	// packet_out = &data;
-	// ready_copro1 = true;
-	// wait(ack_copro1.posedge_event()); // Attendre ack == true
-	// ready_copro1 = false;
-	cout << "COPRO1 ok" << endl;
-	return SIMPLE_BUS_OK;
+	static int cpt = 0;
+	simple_bus_status status = SIMPLE_BUS_OK;
+
+	MEM[(address - m_start_address)/4] = *data;
+
+	if (cpt == 0)
+	{
+		status = SIMPLE_BUS_WAIT;
+		m_current_start_address = address;
+	}
+
+	cpt++;
+	if(cpt > 6)
+	{
+		cpt = 0;
+		packet_dispatched = false;
+		start_dispatch.notify();
+	}
+
+	return status;
 }
 void copro1_adapt_slave::dispatch()
 {
-	//A COMPLETER
+	cout << "COPRO1 dispatch ready" << endl;
+	while(1)
+	{
+		wait(start_dispatch);
+		
+		unsigned address = (m_current_start_address - m_start_address)/4;
+
+		cout << "COPRO1 dispatch on address " << address << endl;
+
+		packet = new Packet(&MEM[address]);
+		pkt_send1();
+		delete packet;
+
+		packet_dispatched = true;
+	}
 }
 unsigned int copro1_adapt_slave::start_address() const
 {
@@ -38,5 +66,8 @@ unsigned int  copro1_adapt_slave::end_address() const
 }
 void copro1_adapt_slave::pkt_send1(void)
 {
-	//A COMPLETER
+	packet_out = packet;
+	ready = true;
+	wait(ack.posedge_event()); // Attendre ack == true
+	ready = false;
 }

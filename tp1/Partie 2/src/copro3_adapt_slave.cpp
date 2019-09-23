@@ -20,8 +20,6 @@ simple_bus_status copro3_adapt_slave::write(int *data, unsigned int address)
 	static int cpt = 0;
 	simple_bus_status status = SIMPLE_BUS_OK;
 
-	cout << "COPRO3 ok" << endl;
-
 	MEM[(address - m_start_address)/4] = *data;
 
 	if (cpt == 0)
@@ -52,15 +50,11 @@ void copro3_adapt_slave::dispatch()
 		cout << "COPRO3 dispatch on address " << address << endl;
 
 		packet = new Packet(&MEM[address]);
-
-		buffer_out.write(packet);
-		wait(ack.posedge_event()); // Attendre ack == true
-
+		pkt_send3();
 		delete packet;
 
 		packet_dispatched = true;
 	}
-
 }
 unsigned int  copro3_adapt_slave::start_address() const
 {
@@ -70,6 +64,8 @@ unsigned int  copro3_adapt_slave::end_address() const
 {
 	return m_end_address;
 }
-void copro3_adapt_slave::pkt_send3(void){
-	//A COMPLETER
+void copro3_adapt_slave::pkt_send3(void)
+{
+	buffer_out.write(packet);
+	wait(ack.posedge_event()); // Attendre ack == true
 }
