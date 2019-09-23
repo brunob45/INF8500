@@ -7,7 +7,7 @@ copro3_adapt_slave::~copro3_adapt_slave()
 
 void copro3_adapt_slave::access_time()
 {
-	//A COMPLETER
+	//DO NOTHING (UNIMPLEMENTED)
 }
 
 simple_bus_status copro3_adapt_slave::read(int *data, unsigned int address)
@@ -17,11 +17,50 @@ simple_bus_status copro3_adapt_slave::read(int *data, unsigned int address)
 }
 simple_bus_status copro3_adapt_slave::write(int *data, unsigned int address)
 {
-	return SIMPLE_BUS_OK;
+	static int cpt = 0;
+	simple_bus_status status = SIMPLE_BUS_OK;
+
+	cout << "COPRO3 ok" << endl;
+
+	MEM[(address - m_start_address)/4] = *data;
+
+	if (cpt == 0)
+	{
+		status = SIMPLE_BUS_WAIT;
+		m_current_start_address = address;
+	}
+
+	cpt++;
+	if(cpt > 6)
+	{
+		cpt = 0;
+		packet_dispatched = false;
+		start_dispatch.notify();
+	}
+
+	return status;
 }
 void copro3_adapt_slave::dispatch()
 {
-	//A COMPLETER
+	cout << "COPRO3 dispatch ready" << endl;
+	while(1)
+	{
+		wait(start_dispatch);
+		
+		unsigned address = (m_current_start_address - m_start_address)/4;
+
+		cout << "COPRO3 dispatch on address " << address << endl;
+
+		packet = new Packet(&MEM[address]);
+
+		buffer_out.write(packet);
+		wait(ack.posedge_event()); // Attendre ack == true
+
+		delete packet;
+
+		packet_dispatched = true;
+	}
+
 }
 unsigned int  copro3_adapt_slave::start_address() const
 {

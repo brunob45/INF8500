@@ -52,14 +52,17 @@ public:
         , m_start_address(start_address)
         , m_end_address(end_address)
         , m_nr_wait_states(nr_wait_states)
-        , packet_dispatched(1)
+        , packet_dispatched(true)
         , m_wait_count(-1)
+        , m_current_start_address(start_address)
     {
         SC_THREAD(dispatch);
-        //A COMPLETER
+        dont_initialize();
+        sensitive << start_dispatch;
+
         SC_METHOD(access_time);
         dont_initialize();
-        //A COMPLETER
+
     }
     /* *******************************************************************
     // MODULE DESTRUCTOR
@@ -70,13 +73,14 @@ public:
     ******************************************************************** */
 private:
     sc_event start_dispatch;
-    int packet_dispatched;
+    bool packet_dispatched;
     Packet *packet;
-    unsigned int *MEM;
+    unsigned int MEM[24];
     unsigned int m_start_address;
     unsigned int m_end_address;
     int m_wait_count;
     unsigned int m_nr_wait_states;
+    unsigned int m_current_start_address;
 };
 
 #endif

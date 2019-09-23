@@ -7,7 +7,7 @@ copro2_adapt_slave::~copro2_adapt_slave()
 
 void copro2_adapt_slave::access_time()
 {
-  if (m_wait_count >= 0) m_wait_count--;
+	//DO NOTHING (UNIMPLEMENTED)
 }
 
 simple_bus_status copro2_adapt_slave::read(int *data, unsigned int address)
@@ -17,7 +17,8 @@ simple_bus_status copro2_adapt_slave::read(int *data, unsigned int address)
 }
 simple_bus_status copro2_adapt_slave::write(int *data, unsigned int address)
 {
-	return SIMPLE_BUS_WAIT;
+	cout << "COPRO2 ok" << endl;
+	return SIMPLE_BUS_OK;
 // 	static unsigned int write_cnt = 6;
 // 	// accept a new call if m_wait_count < 0)
 // 	if (m_wait_count < 0)

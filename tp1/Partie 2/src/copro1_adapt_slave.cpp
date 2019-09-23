@@ -7,7 +7,7 @@ copro1_adapt_slave::~copro1_adapt_slave()
 
 void copro1_adapt_slave::access_time()
 {
-	//A COMPLETER
+	//DO NOTHING (UNIMPLEMENTED)
 }
 
 simple_bus_status copro1_adapt_slave::read(int *data, unsigned int address)
@@ -21,6 +21,7 @@ simple_bus_status copro1_adapt_slave::write(int *data, unsigned int address)
 	// ready_copro1 = true;
 	// wait(ack_copro1.posedge_event()); // Attendre ack == true
 	// ready_copro1 = false;
+	cout << "COPRO1 ok" << endl;
 	return SIMPLE_BUS_OK;
 }
 void copro1_adapt_slave::dispatch()

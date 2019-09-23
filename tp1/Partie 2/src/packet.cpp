@@ -25,8 +25,9 @@ Packet::Packet(unsigned a, unsigned int* p)
 Packet::Packet(unsigned a, unsigned int p)
 {
 	m_packet[1] = a;
-	for (int i = 2; i < 6; i++)
-		m_packet[i] = (p*i) * 3500 % 3001 *57;
+	m_packet[2] = p;
+	for (int i = 3; i < 6; i++)
+		m_packet[i] = 0;//(p*i) * 3500 % 3001 *57;
 }
 Packet::Packet(const Packet& a_packet)
 {
@@ -56,7 +57,7 @@ const Packet& Packet::operator=(const Packet& old_packet)
 
 ostream& operator<< (ostream& o, const Packet& p)
 {
-	o << "Adresse du paquet : " << p.m_packet[1] << endl
+	o << "Adresse du paquet : 0x" << hex << p.m_packet[1] << endl
      << "Contenu du paquet : " << endl;
 	for (int i = 2; i < 6; i++)
 	{

@@ -84,17 +84,17 @@ SC_MODULE(simple_bus_test)
     sc_signal<bool> display_ready;
 
     // module instances
-    packet_gen						   *p_gen;
-    packet_gen_adapt_master			   *p_packet_gen_adapt;
-    simple_bus					       *p_bus;
-    simple_bus_arbiter                 *p_arbiter;
-    copro1							   *p_copro1;
-    copro1_adapt_slave				   *p_copro1_adapt;
-    copro2                             *p_copro2;
-    copro2_adapt_slave				   *p_copro2_adapt;
-    copro3                             *p_copro3;
-    copro3_adapt_slave				   *p_copro3_adapt;
-    display							   *p_dply;
+    packet_gen              *p_gen;
+    packet_gen_adapt_master *p_packet_gen_adapt;
+    simple_bus              *p_bus;
+    simple_bus_arbiter      *p_arbiter;
+    copro1                  *p_copro1;
+    copro1_adapt_slave      *p_copro1_adapt;
+    copro2                  *p_copro2;
+    copro2_adapt_slave      *p_copro2_adapt;
+    copro3                  *p_copro3;
+    copro3_adapt_slave      *p_copro3_adapt;
+    display                 *p_dply;
 
     // constructor
     SC_CTOR(simple_bus_test)
@@ -112,11 +112,11 @@ SC_MODULE(simple_bus_test)
         p_arbiter = new simple_bus_arbiter("arbiter");
         p_gen = new packet_gen("packet_gen");
         p_packet_gen_adapt = new packet_gen_adapt_master("packet_gen_adapt", 0, 256, false, 2);
-        p_copro1_adapt = new copro1_adapt_slave("copro1_adapt", 0x00, 0x0f, 2);
+        p_copro1_adapt = new copro1_adapt_slave("copro1_adapt", 0, 95, 2);
         p_copro1 = new copro1("copro1");
-        p_copro2_adapt = new copro2_adapt_slave("copro2_adapt", 0x10, 0x1f, 2);
+        p_copro2_adapt = new copro2_adapt_slave("copro2_adapt", 96, 191, 2);
         p_copro2 = new copro2("copro2");
-        p_copro3_adapt = new copro3_adapt_slave("copro3_adapt", 0x20, 0x2f, 2);
+        p_copro3_adapt = new copro3_adapt_slave("copro3_adapt", 192, 287, 2);
         p_copro3 = new copro3("copro3");
         p_dply = new display("display");
 
@@ -129,6 +129,11 @@ SC_MODULE(simple_bus_test)
         p_copro3_adapt->clock(C1);
 
         p_bus->arbiter_port(*p_arbiter);
+        p_bus->slave_port(*p_copro1_adapt);
+        p_bus->slave_port(*p_copro2_adapt);
+        p_bus->slave_port(*p_copro3_adapt);
+
+        p_packet_gen_adapt->bus_port(*p_bus);
 
         // connect packet_gen and adapt
         p_gen->packet_ready(packet_ready);
