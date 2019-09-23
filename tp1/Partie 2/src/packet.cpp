@@ -25,9 +25,8 @@ Packet::Packet(unsigned a, unsigned int* p)
 Packet::Packet(unsigned a, unsigned int p)
 {
 	m_packet[1] = a;
-	m_packet[2] = p;
-	for (int i = 3; i < 6; i++)
-		m_packet[i] = 0;//(p*i) * 3500 % 3001 *57;
+	for (int i = 2; i < 6; i++)
+		m_packet[i] = (p*i) * 3500 % 3001 *57;
 }
 Packet::Packet(const Packet& a_packet)
 {

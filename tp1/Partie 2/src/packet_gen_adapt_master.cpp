@@ -30,13 +30,8 @@ void packet_gen_adapt_master::pkt_dispatch(void)
 			sb_fprintf(stdout, "%s %s : blocking-write failed at address %x\n",
 				sc_time_stamp().to_string().c_str(), name(), addr);
 		}
-		else
-		{
-			cout << "BUS WRITE ok" << endl;
-		}
 		
 		wait(50, SC_NS);
-		cout << "BUS WRITE done" << endl;
 	}
 }
 

@@ -47,7 +47,7 @@ void copro2_adapt_slave::dispatch()
 		
 		unsigned address = (m_current_start_address - m_start_address)/4;
 
-		cout << "COPRO2 dispatch on address " << address << endl;
+		cout << "COPRO2 dispatch" << endl;
 
 		packet = new Packet(&MEM[address]);
 		pkt_send2();

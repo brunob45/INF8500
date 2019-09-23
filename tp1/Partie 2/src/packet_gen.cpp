@@ -5,7 +5,6 @@
 // sensitive(next_packet)
 void packet_gen::generate( void )
 {
-	srand(time(0));
 	for (int i = 0; i < 8; i++)
 	{
  		packet_ready = false;
@@ -16,7 +15,7 @@ void packet_gen::generate( void )
 
 		// Générer un nombre aléatoire entre 0 et 255.
 		int address_nb = (rand() % (72/4))*4;
-		int copro_nb =   i%3;//(rand() % 3);
+		int copro_nb =   (rand() % 3);
 		int nba = address_nb + copro_nb * 96;
 		
 		// Générer un nouveau paquet et l'envoyer au coprocesseur
