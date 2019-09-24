@@ -21,36 +21,28 @@
 #******************************************************************************#
 CC = g++
 LD = g++
+AR = gcc-ar
 
-EXEC = testbench 
+EXEC = libsimple_bus.a 
 
 INCLUDE_SYSTEMC = -I${SYSTEMC_HOME}/include
 
-INCLUDES = $(INCLUDE_SYSTEMC)
-CFLAGS = -g -O0 -c -std=c++11 -Isimple_bus/include
-LDFLAGS = -L${SYSTEMC_HOME}/lib-linux64 -lsystemc -Lsimple_bus
+INCLUDES = $(INCLUDE_SYSTEMC) -Iinclude
+CFLAGS = -g -O0 -c -std=c++11
 LDPATH = export LD_LIBRARY_PATH=${SYSTEMC_HOME}/lib-linux64
 SRCFILES = $(wildcard src/*.cpp)
 
-OBJFILES = $(patsubst %.cpp, obj/%.o, ${SRCFILES})
+OBJFILES = $(patsubst src/%.cpp, obj/%.o, ${SRCFILES})
 
-_dummy := $(shell mkdir -p obj/src)
+_dummy := $(shell mkdir -p obj)
 
-all: $(EXEC)
+all: main
 
-$(EXEC): $(OBJFILES) simple_bus
-	$(LD) $(LDFLAGS) $(OBJFILES) simple_bus/libsimple_bus.a -o $@
+main: $(OBJFILES)
+	$(AR) -rcs $(EXEC) $(OBJFILES)
 
-libsimple_bus.a:
-	$(MAKE) -C simple_bus
-
-obj/%.o: %.cpp
+obj/%.o: src/%.cpp
 	$(CC) $(CFLAGS) $(DEFINES) $(INCLUDES) $^ -o $@
 
-run: $(EXEC)
-	$(LDPATH) && ./$(EXEC)
-
 clean:
-	rm -rf obj/src $(EXEC)
-
-.PHONY: simple_bus
+	rm -rf obj $(EXEC)
