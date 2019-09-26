@@ -284,8 +284,8 @@ void simple_bus::handle_request()
 {
   if (m_verbose)
       sb_fprintf(stdout, "%s %s Handle Slave(%d)\n",
-		 sc_time_stamp().to_string().c_str(), name(), 
-		 m_current_request->priority);
+        sc_time_stamp().to_string().c_str(), name(), 
+        m_current_request->priority);
 
   m_current_request->status = SIMPLE_BUS_WAIT;
   simple_bus_slave_if *slave = get_slave(m_current_request->address);
