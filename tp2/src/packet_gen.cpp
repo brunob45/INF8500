@@ -21,7 +21,7 @@ void packet_gen::generate( void )
 		// Choix copro 0, 1 ou 2
 		copro_numero = rand() % 3;
 
-		offset_copro = (rand() % 46) * 4;	
+		offset_copro = (rand() % 46) * 4;	 //46 = (256 - 72)/4 avec 72 la taille du paquet en octets
 		nba = (copro_numero * 256) + offset_copro;
 
 		// G�n�rer un nouveau paquet et l'envoyer au coprocesseur

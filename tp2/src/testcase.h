@@ -10,19 +10,7 @@
 
 //#include "include.h"
 #include <math.h>
-#include <iostream>
-#include <string.h>
-
-#include <crave/ConstrainedRandom.hpp>
-using crave::Generator;
-using crave::distribution;
-using crave::dist;
-using crave::range;
-using crave::rand_obj;
-using crave::randv;
-using crave::rand_vec;
-using crave::_i;
-using crave::reference;
+#include "include.h"
 
 ////////////////////////////////////////////////////////////////////////////////////
 /////////////  Testcase To Generate Data in Ascending Order   //////////////////////
@@ -207,52 +195,46 @@ class TestBase {
 public: 
   int iarray[MAX];
   bool direction;
-  int * p ;
+  int * p;
 
   int * runphase(int a);
-  void chk_testcase(int arg, std::string str);
+  void chk_testcase(std::string str);
 };
 
-void TestBase::chk_testcase(int argc,std::string str){
+void TestBase::chk_testcase(std::string str){
 
- if(argc <= 2) 
-  { 
-   std::cout<<"Please Specify Testcase name : argv[2] is Null"<<std::endl; 
-   assert(0);
-  }
- if(str.compare("Full_Random") == 0)
+  //printf("Chaine : %s \n", str.c_str());
+
+ if(str.compare("random_full") == 0)
   {
-   Test_Rand_Full_data_gen * c;
-   c = new Test_Rand_Full_data_gen;
-   c->next();
-   p = c->runphase(20);
-   direction = c->direction; 
+   Test_Rand_Full_data_gen c;
+   c.next();
+   p = c.runphase(20);
+   direction = c.direction;
+   //recuperer (p,direction) qui constitue le jeu de test + allocation iarray new puis delete apres utilisation
   }
-  else if(str.compare("Radom_Asc") == 0)
+  else if(str.compare("random_asc") == 0)
   {
-   Test_Random_Asc_data_gen * c;
-   c = new Test_Random_Asc_data_gen;
-   c->next();
-   direction = c->direction; 
-   p = c->runphase(20);
+   Test_Random_Asc_data_gen c;
+   c.next();
+   direction = c.direction; 
+   p = c.runphase(20);
   }
-  else if(str.compare("Random_Dsc") == 0)
+  else if(str.compare("random_desc") == 0)
   {
-   Test_Random_Dsc_data_gen * c;
-   c = new Test_Random_Dsc_data_gen;
-   c->next();
-   direction = c->direction; 
-   p = c->runphase(20);
+   Test_Random_Dsc_data_gen c;
+   c.next();
+   direction = c.direction; 
+   p = c.runphase(20);
    }
-  else if(str.compare("Continues_Desc") == 0)
+  else if(str.compare("continues_desc") == 0)
   {
-   Test_Continues_Desc_data_gen * c;
-   c = new Test_Continues_Desc_data_gen;
-   c->next();
-   direction = c->direction; 
-   p = c->runphase(20);
+   Test_Continues_Desc_data_gen c;
+   c.next();
+   direction = c.direction; 
+   p = c.runphase(20);
   }
-else if(str.compare("Continues_Asc") == 0)
+else if(str.compare("continues_asc") == 0)
   {
    Test_Continues_Asc_data_gen * c;
    c = new Test_Continues_Asc_data_gen;

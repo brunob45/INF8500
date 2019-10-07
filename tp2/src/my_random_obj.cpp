@@ -1,6 +1,8 @@
 #include <crave/ConstrainedRandom.hpp>
 
 #include <iostream>
+#include <sstream>
+#include "testcase.h"
 
 using std::ostream;
 
@@ -29,7 +31,7 @@ class my_rand_obj : public rand_obj {
   randv<sort_dir_enum> 		sort_dir;
   randv<data_order_enum> 	data_order;
   randv<unsigned int> 		address;
-  int 				offset=19*4+1;  // nombre d'octets dans un mot+ 1		
+  int 				offset=19*4/*+*/-1;  // nombre d'octets dans un mot/*+*/ -1		
 
   my_rand_obj(rand_obj* parent = 0) : rand_obj(parent), copro(this), sort_dir(this), data_order(this), address(this) {
     constraint( if_then(copro() == copro1 , address() >= 0 && address() <= 255-offset));
@@ -69,39 +71,55 @@ class my_rand_obj : public rand_obj {
     }
 	
     os << " ";
-    switch (obj.data_order) {
-      case random_desc:
-        os << "random_desc";
-        break;
-      case random_asc:
-        os << "random_asc";
-        break;
-      case random_full:
-        os << "random_full";
-        break;
-      case continues_asc:
-        os << "continues_asc";
-        break;
-     case continues_desc:
-        os << "continues_desc";
-        break;
-      default:
-        os << "UNKNOWN(" << obj.data_order << ")";
-    }
+    os << obj.getTestCase();
 
     os << " ";
     os << obj.address;
     return os;
   }
+
+  std::string toString(std::ostream& os) {
+    std::ostringstream ss;
+    ss << os.rdbuf();
+    return ss.str();
+  }
+
+  std::string getTestCase()
+  {
+    std::string result = "UNKNOWN";
+    switch (data_order) {
+      case random_desc:
+        result = "random_desc";
+        break;
+      case random_asc:
+        result = "random_asc";
+        break;
+      case random_full:
+        result = "random_full";
+        break;
+      case continues_asc:
+        result = "continues_asc";
+        break;
+     case continues_desc:
+        result = "continues_desc";
+        break;
+      default:
+        break;
+    }
+    return result;
+  }
+  
 };
 
 // Le main a servi pour faire le test du code
 int main(int argc, char* argv[]) {
   crave::init("crave.cfg");
   my_rand_obj obj;
+  TestBase tb;
   for (int i = 0; i < 50; i++) {
     CHECK(obj.next());
     std::cout << obj << std::endl;
+    tb.chk_testcase(obj.getTestCase());
   };
 
   return 0;

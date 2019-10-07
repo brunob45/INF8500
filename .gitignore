@@ -4,3 +4,5 @@
 .vscode
 testbench
 *.o
+tp2/main
+tp2/crave.cfg
