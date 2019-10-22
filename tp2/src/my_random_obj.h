@@ -33,7 +33,7 @@ class my_rand_obj : public rand_obj {
   randv<sort_dir_enum> 		sort_dir;
   randv<data_order_enum> 	data_order;
   randv<unsigned int> 		address;
-  int 				            offset=19*4-1;  // nombre d'octets dans un mot -1		
+  const int 	            offset=19*4-1;  // nombre d'octets dans un packet -1
 
   my_rand_obj(rand_obj* parent = 0) : rand_obj(parent), copro(this), sort_dir(this), data_order(this), address(this) {
     constraint(if_then(copro() == copro1 , address() >= 0 && address() <= 255-offset));

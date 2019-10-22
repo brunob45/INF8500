@@ -7,9 +7,6 @@
 void packet_gen::generate( void )
 {  
 	int i=0;
- 	int nba; 
-	int copro_numero;
-	int offset_copro;
 
 	crave::init("crave.cfg");
 	my_rand_obj obj;
@@ -24,13 +21,15 @@ void packet_gen::generate( void )
 		wait(50, SC_NS);
 		
     	CHECK(obj.next()); // Génération des attributs aléatoires du prochain paquet
+    	tb.chk_testcase(obj.getTestCase());
+ 		int address = obj.address;
 
 		// Générer un nouveau paquet et l'envoyer au coprocesseur
 		// dont le numéro a été généré aléatoirement
-		pkt = new Packet(obj.address, 1 + i);
+		pkt = new Packet(address, tb.direction, (unsigned int*)tb.p);
 		//affichage du paquet envoyé
-		cout << "GEN : Un paquet a ete envoye a l'adresse 0x" << hex << nba << endl;
-		cout << *pkt;
+		cout << "GEN : Un paquet a ete envoye a l'adresse 0x" << hex << address << endl;
+		//cout << *pkt;
 		packet_out = pkt;
 		cout << "GEN : Envoi du paquet au bus" << endl;
 		packet_ready = true;

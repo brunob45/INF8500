@@ -15,7 +15,7 @@ SC_MODULE(packet_gen)
 	// Sortie indiquant qu'un paquet est prêt pour le routeur
 	sc_out<bool> packet_ready;
 	// Sortie du paquet à transmettre au routeur
-  sc_out<Packet*> packet_out;
+	sc_out<Packet*> packet_out;
 
 	/* *******************************************************************
 	// LOCAL VARIABLES
