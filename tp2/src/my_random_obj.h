@@ -49,24 +49,6 @@ class my_rand_obj : public rand_obj {
     constraint(address() % 4 == 0); // pour que les adresses des paquets soient correctes (alignées sur un mot)
   }
 
-  /* 4 getters ajoutés pour appel depuis packet_gen.cpp */
-  copro_enum copro_value() {
-	  return (copro);
-  };
-
-  sort_dir_enum sort_dir_value() {
-	  return (sort_dir);
-  };
-
-  data_order_enum data_order_value() {
-	  return (data_order);
-  };
-
-  unsigned int address_value() {
-	  return (address);
-  };
-
-
   friend ostream& operator<<(ostream& os, my_rand_obj& obj) {
     switch (obj.copro) {
       case copro1:

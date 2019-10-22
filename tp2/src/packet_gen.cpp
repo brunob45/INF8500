@@ -15,8 +15,7 @@ void packet_gen::generate( void )
 	TestBase tb;
 
 	//while (i < 8)
-	while (obj2.get_inst_coverage() < 50) {  // le pourcentage de couverture que l'on veut obtenir --> à calculer 
-	{
+	while (obj2.get_inst_coverage() < 100) {  // le pourcentage de couverture que l'on veut obtenir --> à calculer 
  		packet_ready = false;
 		cout << "GEN : attente du bus pret" << endl;
 		wait(); // Attendre l'assertion de next_packet
@@ -26,7 +25,7 @@ void packet_gen::generate( void )
     	CHECK(obj.next()); // Génération des attributs aléatoires du prochain paquet
     	tb.chk_testcase(obj.getTestCase());
  		int address = obj.address;
-		obj2.sample(obj.copro_value(), obj.sort_dir_value(), obj.data_order_value()/*, obj.address_value()*/); //indiquer à la couverture l'échantillon testé
+		obj2.sample(obj.copro, obj.sort_dir, obj.data_order/*, obj.address_value()*/); //indiquer à la couverture l'échantillon testé
 
 		// Générer un nouveau paquet et l'envoyer au coprocesseur
 		// dont le numéro a été généré aléatoirement
@@ -44,9 +43,9 @@ void packet_gen::generate( void )
 		
 		delete pkt;
 		i++;
+		std::cout << "coverage:"<<obj2.get_inst_coverage()<<std::endl;
 	}
 
 	fc4sc::global::coverage_save("coverage_results.xml");
-	std::cout << "nombre d'execution requise pour 81.25%: " << obj2.nb_de_cov << std::endl;
-	
+	std::cout << "nombre d'execution requise pour 81.25%: " << std::dec << (unsigned)obj2.nb_de_cov << std::endl;
 }

@@ -61,9 +61,9 @@
 
   public:
 
-	copro_enum copro;
-	sort_dir_enum sort_dir;
-	data_order_enum data_order;
+	unsigned copro;
+	unsigned sort_dir;
+	unsigned data_order;
 	unsigned int address;
     int nb_de_cov = 0;
 
@@ -71,7 +71,7 @@
     CG_CONS(input_coverage) {
     }
 
-    void  sample(copro_enum copro, sort_dir_enum sort_dir , data_order_enum data_order/*, unsigned int address*/) {
+    void  sample(unsigned copro, unsigned sort_dir , unsigned data_order/*, unsigned int address*/) {
 
       this->copro = copro;
       this->sort_dir = sort_dir;
@@ -82,23 +82,23 @@
 
     }
 
-    COVERPOINT(copro_enum, copro_cvp, copro) {
-        bin<copro_enum>("copro 1", copro1),
-        bin<copro_enum>("copro 2", copro2),
-        bin<copro_enum>("copro 3", copro3) //à vérifier si virugle ou pas sur la dernière ligne
+    COVERPOINT(unsigned, copro_cvp, copro) {
+        bin<unsigned>("copro 1", copro1),
+        bin<unsigned>("copro 2", copro2),
+        bin<unsigned>("copro 3", copro3) //à vérifier si virugle ou pas sur la dernière ligne
     };
 
-    COVERPOINT(sort_dir_enum, sort_dir_cvp, sort_dir) {
-        bin<sort_dir_enum>("ascendant", up),
-        bin<sort_dir_enum>("descendant",down)
+    COVERPOINT(unsigned, sort_dir_cvp, sort_dir) {
+        bin<unsigned>("ascendant", up),
+        bin<unsigned>("descendant",down)
     };
 
-    COVERPOINT(data_order_enum, data_order_cvp, data_order) {
-		bin<data_order_enum>("random_desc", random_desc),
-		bin<data_order_enum>("random_asc", random_asc),
-		bin<data_order_enum>("random_full", random_full),
-        bin<data_order_enum>("continues_asc", continues_asc),
-        bin<data_order_enum>("continues_desc", continues_desc)
+    COVERPOINT(unsigned, data_order_cvp, data_order) {
+		bin<unsigned>("random_desc", random_desc),
+		bin<unsigned>("random_asc", random_asc),
+		bin<unsigned>("random_full", random_full),
+        bin<unsigned>("continues_asc", continues_asc),
+        bin<unsigned>("continues_desc", continues_desc)
     };
 
 	/*
@@ -112,10 +112,10 @@
 	};
 	*/
 
-    cross<copro_enum, sort_dir_enum, data_order_enum/*, unsigned int*/> reset_valid_cross = cross<copro_enum, sort_dir_enum, data_order_enum/*, unsigned int*/> (this, "croissement de 3(?4) parametres",
+    cross<unsigned, unsigned, unsigned/*, unsigned int*/> reset_valid_cross = cross<unsigned, unsigned, unsigned/*, unsigned int*/> (this, "croissement de 3(?4) parametres",
         &data_order_cvp,
         &sort_dir_cvp,
-		&copro_cvp/*,
+		    &copro_cvp/*,
         &address_cvp*/
     );
 
