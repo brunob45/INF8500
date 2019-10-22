@@ -5,7 +5,7 @@
  *      Author: Srinivasa
  *      Adapté par Guy Bois en septembre 2019
  */
-
+#pragma once
 
 
 //#include "include.h"

@@ -12,17 +12,17 @@ SC_MODULE(copro2)
 	******************************************************************** */
 	// Le paquet provenant de l'interconnexion 
 	sc_in<Packet*> packet_in;
-	// Entrï¿½e provenant de l'interconnexion  et indiquant qu'il y a un paquet ï¿½ traiter
+	// Entrée provenant de l'interconnexion  et indiquant qu'il y a un paquet é traiter
 	sc_in<bool> ready;
-	// Signal indiquant au l'interconnexion que le paquet a ï¿½tï¿½ traitï¿½
+	// Signal indiquant au l'interconnexion que le paquet a été traité
 	sc_out<bool> ack;
-	// Signal indiquant au display qu'il y a un message ï¿½ traiter
+	// Signal indiquant au display qu'il y a un message é traiter
 	sc_out<bool> msg_valid;
-	// Sortie d'une chaï¿½ne de caractï¿½res pour le display
+	// Sortie d'une chaéne de caractéres pour le display
 	sc_out<char*> output_msg;
 	// Sortie du paquet vers le display
 	sc_out<Packet*> output_pkt;
-	// Acquittement du display (Le display est prï¿½t ï¿½ afficher)
+	// Acquittement du display (Le display est prét é afficher)
 	sc_in<bool> display_ready;
 
 	//Retour du copro2 a son adapteur
@@ -38,7 +38,7 @@ SC_MODULE(copro2)
 	/* *******************************************************************
 	// MODULE METHODS
 	******************************************************************** */
-	// Ce fonction reï¿½oit un paquet de l'interconnexion et envoit le paquet au display
+	// Ce fonction reéoit un paquet de l'interconnexion et envoit le paquet au display
 	void pkt_display(void); //THREAD
 
 	/* *******************************************************************

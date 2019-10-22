@@ -12,7 +12,7 @@ void packet_gen_adapt_master::pkt_dispatch(void){
 
 	while (true)
 	{
-		// RÃ©ception d'un packet du gÃ©nÃ©rateur :
+		// Réception d'un packet du générateur :
 		next.write(true);
 		cout << "PKT_GEN_ADAPTER : attente packet disponible" << endl;
 		wait(ready.posedge_event());

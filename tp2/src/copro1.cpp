@@ -9,7 +9,7 @@ void copro1::pkt_display()
 	{
 		msg_valid = false; //Indique qu'il n'y a plus de paquets valides pour display et qu'il faut recommencer un cycle
 		
-		//Recupï¿½ration du paquet gï¿½nï¿½rï¿½ par l'interconnexion
+		//Recupération du paquet généré par l'interconnexion
 		ack = false; 
 		cout << "COPRO1 : Attente paquet pret" << endl;
 		wait(ready.posedge_event()); // Attendre ready == true
@@ -51,10 +51,10 @@ void copro1::pkt_display()
 		// Indiquer au module display qu'il faut afficher un message
 		cout << "COPRO1 : Envoi au display" << endl;
 		cout << "COPRO1 : attente du display ready" << endl;
-		wait(display_ready.value_changed_event()); // attente du signal indiquant que le paquet a ï¿½tï¿½ lu par le display
+		wait(display_ready.value_changed_event()); // attente du signal indiquant que le paquet a été lu par le display
 		cout << "COPRO1 : Display a bien recu le message" << endl;
 
-		// On retourne le rÃ©sultat a l adapteur de copro 1
+		// On retourne le résultat a l adapteur de copro 1
 		packet_out.write(&pkt);
 
 	}

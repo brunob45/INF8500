@@ -10,11 +10,11 @@ SC_MODULE(packet_gen)
 	/* *******************************************************************
 	// MODULE PORTS
 	******************************************************************** */
-	// signal indiquant que le routeur est prï¿½t ï¿½ recevoir un nouveau paquet
+	// signal indiquant que le routeur est prét à recevoir un nouveau paquet
 	sc_in<bool> next_packet;
-	// Sortie indiquant qu'un paquet est prï¿½t pour le routeur
+	// Sortie indiquant qu'un paquet est prêt pour le routeur
 	sc_out<bool> packet_ready;
-	// Sortie du paquet ï¿½ transmettre au routeur
+	// Sortie du paquet à transmettre au routeur
   sc_out<Packet*> packet_out;
 
 	/* *******************************************************************
@@ -26,7 +26,7 @@ SC_MODULE(packet_gen)
 	// MODULE METHODS
 	******************************************************************** */
 	SC_HAS_PROCESS(packet_gen);
-	// Fonction qui genï¿½re les paquets (THREAD)
+	// Fonction qui genére les paquets (THREAD)
 	void generate( void );
 
 	/* *******************************************************************
@@ -36,7 +36,7 @@ SC_MODULE(packet_gen)
 	{
 		// generate est un thread
 		SC_THREAD(generate);
-		// generate est sensible ï¿½ next_packet
+		// generate est sensible à next_packet
 		sensitive(next_packet);		
 	}
 };

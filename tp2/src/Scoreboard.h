@@ -7,6 +7,7 @@
 
 // A été concu pour plusieurs types, on va utilser seulement int
 
+#pragma once
 
 #include "include.h"
 //use templeted class
@@ -15,6 +16,7 @@ class ScoreBoard {
   void check_int(int * a ,int * b, bool direction);
   void check_char(char * a ,char * b, bool direction);
   void check_lgint(long int * a , long int * b, bool direction);
+  void check_uint(unsigned int * a ,unsigned int * b, bool direction); //ajout fonction check unsigned int
 };
 
 void ScoreBoard::check_int(int * a ,int * b, bool direction)

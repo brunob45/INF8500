@@ -31,7 +31,7 @@ simple_bus_status copro1_adapt_slave::write(int *data, unsigned int address)
 		MEM[(address - m_start_address)/4] = *data;
 		
 		if (cpt_passage == 19) {
-			// Packet reÃ§u au complet
+			// Packet reçu au complet
 			cpt_passage = 1;
 			start_dispatch.notify();
 		}
@@ -52,7 +52,7 @@ void copro1_adapt_slave::dispatch()
 {
 	while(1) 
 	{	
-		wait(); // Attente Ã©vÃ¨nement start_dispatch
+		wait(); // Attente évènement start_dispatch
 		cout << "COPRO1 : TEST event dispatch" << endl;
 		packet = new Packet(&MEM[((m_current_packet_start_address - m_start_address) / 4)]);
 		pkt_send1();
@@ -87,11 +87,11 @@ void copro1_adapt_slave::to_monitor(void)
                 pkt = *packet_in.read(); // Attendre la lecture bloquante
                 cout << "COPRO1_ADAPT : Recuperation du paquet trie" << endl;
 		// write du paquet au moniteur
-		cout << pkt;
+		//cout << pkt;
 	}
 }
 
-// Ajout Julien, sinon erreur Ã  la compilation (comme dans l'exemple) :
+// Ajout Julien, sinon erreur à la compilation (comme dans l'exemple) :
 
 bool copro1_adapt_slave::direct_read(int *data, unsigned int address)
 {

@@ -31,7 +31,7 @@ SC_MODULE(packet_gen_adapt_master)
 	******************************************************************** */
 	
 	SC_HAS_PROCESS(packet_gen_adapt_master);
-	// Ce thread reï¿½oit un paquet du gï¿½nï¿½rateur, l'identifie et l'envoie ï¿½ l'adaptateur du coprocesseur
+	// Ce thread reçoit un paquet du générateur, l'identifie et l'envoie à l'adaptateur du coprocesseur
 	void pkt_dispatch(void); //THREAD
 
 	/* *******************************************************************

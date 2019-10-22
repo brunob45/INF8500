@@ -1,5 +1,6 @@
 #include <systemc.h>
 #include "packet_gen.h"
+#include "my_random_obj.h"
 
 // SC_THREAD(generate)
 // sensitive(next_packet)
@@ -10,6 +11,10 @@ void packet_gen::generate( void )
 	int copro_numero;
 	int offset_copro;
 
+	crave::init("crave.cfg");
+	my_rand_obj obj;
+	TestBase tb;
+
 	while (i < 8)
 	{
  		packet_ready = false;
@@ -18,16 +23,12 @@ void packet_gen::generate( void )
 		
 		wait(50, SC_NS);
 		
-		// Choix copro 0, 1 ou 2
-		copro_numero = rand() % 3;
+    	CHECK(obj.next()); // Génération des attributs aléatoires du prochain paquet
 
-		offset_copro = (rand() % 46) * 4;	 //46 = (256 - 72)/4 avec 72 la taille du paquet en octets
-		nba = (copro_numero * 256) + offset_copro;
-
-		// Gï¿½nï¿½rer un nouveau paquet et l'envoyer au coprocesseur
-		// dont le numï¿½ro a ï¿½tï¿½ gï¿½nï¿½rï¿½ alï¿½atoirement
-		pkt = new Packet(nba, 1 + i);
-		//affichage du paquet envoyï¿½
+		// Générer un nouveau paquet et l'envoyer au coprocesseur
+		// dont le numéro a été généré aléatoirement
+		pkt = new Packet(obj.address, 1 + i);
+		//affichage du paquet envoyé
 		cout << "GEN : Un paquet a ete envoye a l'adresse 0x" << hex << nba << endl;
 		cout << *pkt;
 		packet_out = pkt;
@@ -35,7 +36,7 @@ void packet_gen::generate( void )
 		packet_ready = true;
 		
 		cout << "GEN : Attente paquet recu" << endl;
-		wait(); // Attendre la dï¿½sassertion de next_packet
+		wait(); // Attendre la désassertion de next_packet
 		packet_ready = false;
 		
 		delete pkt;

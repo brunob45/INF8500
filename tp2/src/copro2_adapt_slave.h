@@ -32,11 +32,11 @@ public:
 	/* *******************************************************************
 	// MODULE METHODS
 	******************************************************************** */
-	// Boucle d'attente lorque l'esclave se rÃ©veille
+	// Boucle d'attente lorque l'esclave se réveille
 	void wait_loop(void); 
-	// thread de dispatch rï¿½veillï¿½e lorsqu'un paquet est prï¿½t (THREAD)
+	// thread de dispatch réveillée lorsqu'un paquet est prét (THREAD)
 	void dispatch(void);
-	// Slave Interface (Mï¿½thodes de l'interface ï¿½ implï¿½menter)
+	// Slave Interface (Méthodes de l'interface é implémenter)
 	simple_bus_status read(int *data, unsigned int address);
 	simple_bus_status write(int *data, unsigned int address);
 	unsigned int start_address() const;
@@ -67,7 +67,7 @@ public:
 		sensitive << start_dispatch;
 
 		SC_METHOD(wait_loop);
-		dont_initialize();	// wait_loop ne sera pas appelÃ© une premiÃ¨re fois
+		dont_initialize();	// wait_loop ne sera pas appelé une première fois
 		sensitive << clock.pos();
 
 		SC_THREAD(to_monitor);
