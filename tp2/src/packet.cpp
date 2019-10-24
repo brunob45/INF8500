@@ -47,7 +47,7 @@ const Packet& Packet::operator=(const Packet& old_packet)
 
 ostream& operator<< (ostream& o, const Packet& p)
 {
-	o << "Adresse du paquet : " << p.m_packet[1] << endl;
+	o << "Adresse du paquet : " << dec << p.m_packet[1] << endl;
 	o << "Direction du paquet : " << (p.m_packet[2]?"ascendant":"descendant") << endl;
 	o << "Contenu du paquet : " << endl;
 	for (int i = 3; i < 19; i++)

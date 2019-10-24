@@ -57,40 +57,39 @@
 #include "my_random_obj.h" //include pour les enums
 
 
-  class input_coverage : public covergroup {
+class input_coverage : public covergroup {
 
   public:
 
-	unsigned copro;
-	unsigned sort_dir;
-	unsigned data_order;
-	unsigned int address;
+    unsigned copro;
+    unsigned sort_dir;
+    unsigned data_order;
+    unsigned address;
     int nb_de_cov = 0;
 
     // Must call parent constructor somewhere register a new cvg
     CG_CONS(input_coverage) {
     }
 
-    void  sample(unsigned copro, unsigned sort_dir , unsigned data_order/*, unsigned int address*/) {
+    void  sample(unsigned copro, unsigned sort_dir , unsigned data_order, unsigned address) {
 
       this->copro = copro;
       this->sort_dir = sort_dir;
-      this->data_order = data_order;/*
-	  this->address = address;*/
+      this->data_order = data_order;
+      this->address = address;
       covergroup::sample();
       nb_de_cov += 1;
-
     }
 
     COVERPOINT(unsigned, copro_cvp, copro) {
         bin<unsigned>("copro 1", copro1),
         bin<unsigned>("copro 2", copro2),
-        bin<unsigned>("copro 3", copro3) //à vérifier si virugle ou pas sur la dernière ligne
+        bin<unsigned>("copro 3", copro3)
     };
 
     COVERPOINT(unsigned, sort_dir_cvp, sort_dir) {
         bin<unsigned>("ascendant", up),
-        bin<unsigned>("descendant",down)
+        bin<unsigned>("descendant", down)
     };
 
     COVERPOINT(unsigned, data_order_cvp, data_order) {
@@ -101,24 +100,23 @@
         bin<unsigned>("continues_desc", continues_desc)
     };
 
-	/*
-	COVERPOINT(unsigned int, adress_cvp, address) {
-		//la je n'ai pas trop d'idées poour les bins des adresses
-		//il faudrait idéalement toutes les mettre mais il y a beaucoup de possibilités, peut-on générer un bin avec une boucle for ?
-		// tester les dernières adresses
-		bin<unsigned int>("1 ere adresse possible copro1", 0),
-		bin<unsigned int>("2 eme adresse possible copro1", 256),
-		bin<unsigned int>("3 eme adresse possible copro1", 512)
-	};
-	*/
+    COVERPOINT(unsigned, adress_cvp, address) {
+      // tests des adresses limites: premiere et derniere de chaque copro.
+      bin<unsigned>("1 ere adresse possible copro1", 0),
+      bin<unsigned>("1 ere adresse possible copro2", 256),
+      bin<unsigned>("1 ere adresse possible copro3", 512),
+      bin<unsigned>("derniere adresse possible copro1", 180),
+      bin<unsigned>("derniere adresse possible copro2", 436),
+      bin<unsigned>("derniere adresse possible copro3", 692)
+    };
 
-    cross<unsigned, unsigned, unsigned/*, unsigned int*/> reset_valid_cross = cross<unsigned, unsigned, unsigned/*, unsigned int*/> (this, "croissement de 3(?4) parametres",
-        &data_order_cvp,
-        &sort_dir_cvp,
-		    &copro_cvp/*,
-        &address_cvp*/
+    cross<unsigned, unsigned, unsigned> reset_valid_cross = cross<unsigned, unsigned, unsigned> (
+      this,
+      "croissement de 3 parametres",
+      &data_order_cvp,
+      &sort_dir_cvp,
+      &copro_cvp
     );
-
   };
 
 

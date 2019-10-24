@@ -40,7 +40,8 @@ int sc_main(int, char **)
 {
   simple_bus_test top("top");
 
-  sc_start(10000, SC_MS);
+  sc_start(1, SC_MS);
+  sc_stop();
 
   return 0;
 }
