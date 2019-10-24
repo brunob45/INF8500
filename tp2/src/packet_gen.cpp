@@ -58,5 +58,5 @@ void packet_gen::generate( void )
 	cout << "----------------------- GEN : Fin de la generation --------------------------- " << endl;
 
 	fc4sc::global::coverage_save("coverage_results.xml");
-	std::cout << "nombre d'execution requise pour 100%: " << std::dec << (unsigned)obj2.nb_de_cov << std::endl;
+	std::cout << "nombre d'itérations requise pour 100%: " << std::dec << (unsigned)obj2.nb_de_cov << std::endl;
 }
