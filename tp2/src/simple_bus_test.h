@@ -94,7 +94,8 @@ SC_MODULE(simple_bus_test)
 	sc_fifo<Packet*> packet_copro2_adapt_monitor;
 	sc_fifo<Packet*> packet_copro3_adapt_monitor;
 
-	sc_signal<bool> monitor_ready;
+	//Signal entre Monitor et packet_gen
+	sc_buffer<bool> monitor_ready;
 
 
 
@@ -150,6 +151,7 @@ SC_MODULE(simple_bus_test)
 		gen->packet_ready(ready_GR);
 		gen->next_packet(next_GR);
 		gen->packet_out(packet_GR);
+		gen->monitor_next(monitor_ready);
 
 		dply->msg_valid(msg_valid);
 		dply->input_message(display_message);
@@ -176,6 +178,7 @@ SC_MODULE(simple_bus_test)
 		copro1_adapt->valid(ready_CP1);
 		copro1_adapt->next(ack_CP1);
 		copro1_adapt->packet_in(packet_copro1_adapt_monitor);
+		copro1_adapt->bus_port(*bus);
 
 		bus->slave_port(*copro1_adapt);
 
@@ -211,6 +214,7 @@ SC_MODULE(simple_bus_test)
 		copro3_adapt->valid(ready_CP3);
 		copro3_adapt->next(ack_CP3);
 		copro3_adapt->packet_in(packet_copro3_adapt_monitor);
+		copro3_adapt->bus_port(*bus);
 
 		bus->slave_port(*copro3_adapt);
 

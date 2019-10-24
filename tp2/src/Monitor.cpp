@@ -29,10 +29,12 @@ void Monitor::dispatch()
     ScoreBoard sb;
 
 	while(1) 
-	{	
-		wait(); // Attente évènement start_dispatch
+	{
+		wait(); // Attente évènement start_dispatch	
 		std::cout << "MONITOR : paquet recu" << std::endl;
         sb.check_uint(&packet.getPacket()[3], packet.getDir());
+        packet_received = true; // Envoi signal packet_gen, utilisation buffer pour ne pas etre contraint par les posedge events
+        
 	}
 
 }

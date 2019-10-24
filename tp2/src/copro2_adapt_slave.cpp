@@ -80,7 +80,7 @@ void copro2_adapt_slave::pkt_send2(void)
 void copro2_adapt_slave::to_monitor(void)
 {
 	static bool lock = false;
-	static unsigned priority = 10;
+	static unsigned priority = 11;
 
 	const unsigned int addr = 768;
 	const unsigned int packet_size = 19;

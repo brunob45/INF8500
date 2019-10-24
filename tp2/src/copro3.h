@@ -26,7 +26,7 @@ SC_MODULE(copro3)
 	sc_in<bool> display_ready;
 
 	//Retour du copro3 a son adapteur
-        sc_fifo_out<Packet*>  packet_out;
+    sc_fifo_out<Packet*>  packet_out;
 
 
 	/* *******************************************************************

@@ -16,6 +16,8 @@ SC_MODULE(packet_gen)
 	sc_out<bool> packet_ready;
 	// Sortie du paquet à transmettre au routeur
 	sc_out<Packet*> packet_out;
+	// Signal entrée indiquant que le monitor a recule paquet
+	sc_in<bool> monitor_next;
 
 	/* *******************************************************************
 	// LOCAL VARIABLES
@@ -37,7 +39,9 @@ SC_MODULE(packet_gen)
 		// generate est un thread
 		SC_THREAD(generate);
 		// generate est sensible à next_packet
-		sensitive(next_packet);		
+		sensitive(next_packet);
+		// generate est sensitive à monitor_next
+		//sensitive(monitor_next);		
 	}
 };
 

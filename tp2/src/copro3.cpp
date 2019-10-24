@@ -46,8 +46,8 @@ void copro3::pkt_display()
 		wait(display_ready.value_changed_event()); // attente du signal indiquant que le paquet a été lu par le display
 		cout << "COPRO3 : Display a bien recu le message" << endl;
 
-                // On retourne le résultat a l adapteur de copro 3
-                packet_out.write(&pkt);
+        // On retourne le résultat a l adapteur de copro 3
+        packet_out.write(&pkt);
 
 	}
 }
