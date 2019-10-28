@@ -33,7 +33,7 @@ RPATH = $(crave_RPATH)
 INCLUDE_SYSTEMC = -I${SYSTEMC_HOME}/include
 INCLUDE_FC4SC = -I${FC4SC_HOME}/includes
 
-INCLUDES = $(INCLUDE_SYSTEMC) $(INCLUDE_FC4SC) $(crave_INCLUDES) 
+INCLUDES = $(INCLUDE_SYSTEMC) $(INCLUDE_FC4SC) $(crave_INCLUDES) -I/home/guy/fc4sc-master/includes/
 CFLAGS =  -g -O0 -c -std=c++11
 DEFINES = -DFC4SC_NO_THROW
 LDFLAGS = -L${SYSTEMC_HOME}/lib-linux64 -lsystemc 

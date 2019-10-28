@@ -16,7 +16,7 @@ class ScoreBoard {
   void check_int(int * a ,int * b, bool direction);
   void check_char(char * a ,char * b, bool direction);
   void check_lgint(long int * a , long int * b, bool direction);
-  void check_uint(unsigned int * a ,unsigned int * b, bool direction); //ajout fonction check unsigned int
+  void check_uint(unsigned int * a, bool direction); //ajout fonction check unsigned int
 };
 
 void ScoreBoard::check_int(int * a ,int * b, bool direction)
@@ -115,6 +115,31 @@ std::cout<<"Score board called"<<std::endl;
 
  if(direction) std::cout<<"ScoreBoard Info : The Expected Result in Ascending Order"<<std::endl;
  else std::cout<<"ScoreBoard Info : The Expected Result in Descending Order"<<std::endl;
+
+}
+
+
+void ScoreBoard::check_uint(unsigned int * a, bool direction){
+
+  std::cout<<"Score board called"<<std::endl;
+  for(int i = 0; i < MAX-1; i++)
+  {
+      if(!direction) 
+      {
+        if(a[i] < a[i+1])
+          std::cout<<"ScoreBoard ERROR: The Expected Result Not in Descending Order"<<std::endl;
+        assert(a[i] >= a[i+1]);
+      }
+      else
+      {
+        if(a[i] > a[i+1])
+          std::cout<<"ScoreBoard ERROR: The Expected Result Not in Ascending Order"<<std::endl;
+        assert(a[i] <= a[i+1]);
+      }
+  }
+
+  if(direction) std::cout<<"ScoreBoard Info : The Expected Result in Ascending Order"<<std::endl;
+  else std::cout<<"ScoreBoard Info : The Expected Result in Descending Order"<<std::endl;
 
 }
 

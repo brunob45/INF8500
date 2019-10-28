@@ -19,24 +19,17 @@ void copro2::pkt_display()
 		cout << "COPRO2 : Acquittement" << endl;
 		ack = true;
 
-  unsigned int* ptr_int = pkt.getPacket();
-  unsigned  int iarray[16];
-  for(int i = 0;i<16;i++)
-   {
-     iarray[i] = ptr_int[i+3]; //*(ptr_int+i*sizeof(unsigned int);
-   };
+		cBubbleSort<unsigned int> cb(&pkt.getPacket()[3], 16);
+		std::cout<<"Donnees avant tri: "<<std::endl;
+		cb.print();
+		cb.doSort(pkt.getDir());
+		//  std::cout<<"Ascend(1)*/Desc(0)* Order "<<direction<<std::endl;
+		std::cout<<"Donnees apres tri: "<<std::endl;
+		cb.print();
+		unsigned int* ptr_int_r;// = cb.get_pointer_to_sorted_array();
+		ptr_int_r = cb.get_pointer_to_sorted_array();
 
-  cBubbleSort<unsigned int> cb(iarray, 16);
-  std::cout<<"Donnees avant tri: "<<std::endl;
-  cb.print();
-  cb.doSort(true);
-//  std::cout<<"Ascend(1)*/Desc(0)* Order "<<direction<<std::endl;
-  std::cout<<"Donnees apres tri: "<<std::endl;
-  cb.print();
-  unsigned int* ptr_int_r;// = cb.get_pointer_to_sorted_array();
-  ptr_int_r = cb.get_pointer_to_sorted_array();
-
-  pkt.putPacket(ptr_int_r);
+		pkt.putPacket(ptr_int_r);
 		
 		// Envoi du paquet au display
 		msg_valid = true; //Indique qu'un nouveau paquet est disponible pour le display

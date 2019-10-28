@@ -1,0 +1,15 @@
+11 exécutions du programme, on relève le nombre de paquets générés :
+518
+665
+923
+336
+979
+970
+190
+892
+338
+734
+150
+
+
+617 itérations nécessaires en moyenne pour obtenir 100% de notre couverture désirée

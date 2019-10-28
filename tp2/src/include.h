@@ -28,7 +28,7 @@ using crave::reference;
 #define		SORT_ERROR_INVALID		-1
 
 
-#define MAX 100
+#define MAX 16
 
 
 #endif /* INCLUDE_H_ */

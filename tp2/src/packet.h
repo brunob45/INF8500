@@ -13,14 +13,16 @@
 #define PACKET_H
 #include <bitset>
 #include <systemc.h>
+#include "include.h"
 class Packet
 {
+	static const int SIZE = MAX+3;
+
 public:
 	// CTOR
-	Packet();	
-	Packet(unsigned int*);
-	Packet(unsigned,unsigned int*);
-	Packet(unsigned, unsigned int);
+	Packet();
+	Packet(unsigned* raw);
+	Packet(unsigned address, unsigned dir, unsigned* payload);
 	Packet(const Packet&);
 	// DTOR
 	virtual ~Packet();
@@ -45,10 +47,8 @@ public:
 
 private:
 
-
 	// packet 
-	unsigned int m_packet[19];
-	
+	unsigned int m_packet[SIZE];
 };
 
 #endif

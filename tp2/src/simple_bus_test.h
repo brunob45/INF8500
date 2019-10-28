@@ -51,6 +51,7 @@
 #include "copro2_adapt_slave.h"
 #include "copro3.h"
 #include "copro3_adapt_slave.h"
+#include "Monitor.h"
 
 
 SC_MODULE(simple_bus_test)
@@ -93,6 +94,9 @@ SC_MODULE(simple_bus_test)
 	sc_fifo<Packet*> packet_copro2_adapt_monitor;
 	sc_fifo<Packet*> packet_copro3_adapt_monitor;
 
+	//Signal entre Monitor et packet_gen
+	sc_buffer<bool> monitor_ready;
+
 
 
 	// module instances
@@ -107,6 +111,7 @@ SC_MODULE(simple_bus_test)
 	copro3                   *copro_3;
 	copro3_adapt_slave	 *copro3_adapt;	
 	display			 *dply;
+	Monitor			*monitor;
 
 
 	// constructor
@@ -125,6 +130,7 @@ SC_MODULE(simple_bus_test)
 		arbiter = new simple_bus_arbiter("arbiter");
 		gen = new packet_gen("packet_gen");
 		dply = new display("display");
+		monitor = new Monitor("monit");
 
 		packet_gen_adapt = new packet_gen_adapt_master("packet_gen_adapt", 1, 0x00, false, 300);
 
@@ -145,6 +151,7 @@ SC_MODULE(simple_bus_test)
 		gen->packet_ready(ready_GR);
 		gen->next_packet(next_GR);
 		gen->packet_out(packet_GR);
+		gen->monitor_next(monitor_ready);
 
 		dply->msg_valid(msg_valid);
 		dply->input_message(display_message);
@@ -171,6 +178,7 @@ SC_MODULE(simple_bus_test)
 		copro1_adapt->valid(ready_CP1);
 		copro1_adapt->next(ack_CP1);
 		copro1_adapt->packet_in(packet_copro1_adapt_monitor);
+		copro1_adapt->bus_port(*bus);
 
 		bus->slave_port(*copro1_adapt);
 
@@ -188,6 +196,7 @@ SC_MODULE(simple_bus_test)
 		copro2_adapt->valid(ready_CP2);
 		copro2_adapt->next(ack_CP2);
 		copro2_adapt->packet_in(packet_copro2_adapt_monitor);
+		copro2_adapt->bus_port(*bus);
 
 		bus->slave_port(*copro2_adapt);
 
@@ -205,8 +214,14 @@ SC_MODULE(simple_bus_test)
 		copro3_adapt->valid(ready_CP3);
 		copro3_adapt->next(ack_CP3);
 		copro3_adapt->packet_in(packet_copro3_adapt_monitor);
+		copro3_adapt->bus_port(*bus);
 
 		bus->slave_port(*copro3_adapt);
+
+		monitor->clock(C1);
+		monitor->packet_received(monitor_ready);
+
+		bus->slave_port(*monitor);
 	}
 
 	// destructor

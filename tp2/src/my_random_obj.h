@@ -33,39 +33,21 @@ class my_rand_obj : public rand_obj {
   randv<sort_dir_enum> 		sort_dir;
   randv<data_order_enum> 	data_order;
   randv<unsigned int> 		address;
-  int 				            offset=19*4-1;  // nombre d'octets dans un mot -1		
+  const int 	            offset=19*4;  // nombre d'octets dans un packet
 
   my_rand_obj(rand_obj* parent = 0) : rand_obj(parent), copro(this), sort_dir(this), data_order(this), address(this) {
-    constraint(if_then(copro() == copro1 , address() >= 0 && address() <= 255-offset));
-    constraint(if_then(copro() == copro2 , address() >= 256 && address() <= 511-offset));
-    constraint(if_then(copro() == copro3 , address() >= 512 && address() <= 767-offset));
+    constraint(if_then(copro() == copro1 , address() >= 0 && address() <= 256-offset));
+    constraint(if_then(copro() == copro2 , address() >= 256 && address() <= 512-offset));
+    constraint(if_then(copro() == copro3 , address() >= 512 && address() <= 768-offset));
     constraint(
       dist(
-        address(), distribution<unsigned int>::create(weighted_range<unsigned int>(0, 255-offset,50))
-			  (weighted_range<unsigned int>(256, 511-offset,25))
-		    (weighted_range<unsigned int>(512, 767-offset,25))
+        address(), distribution<unsigned int>::create(weighted_range<unsigned int>(0, 256-offset, 50))
+			  (weighted_range<unsigned int>(256, 512-offset, 25))
+		    (weighted_range<unsigned int>(512, 768-offset, 25))
       )
     ); 
     constraint(address() % 4 == 0); // pour que les adresses des paquets soient correctes (alignées sur un mot)
   }
-
-  /* 4 getters ajoutés pour appel depuis packet_gen.cpp */
-  copro_enum copro_value() {
-	  return (copro);
-  };
-
-  sort_dir_enum sort_dir_value() {
-	  return (sort_dir);
-  };
-
-  data_order_enum data_order_value() {
-	  return (data_order);
-  };
-
-  unsigned int address_value() {
-	  return (address);
-  };
-
 
   friend ostream& operator<<(ostream& os, my_rand_obj& obj) {
     switch (obj.copro) {

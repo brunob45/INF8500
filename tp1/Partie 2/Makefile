@@ -19,8 +19,8 @@
 #
 #               Date: 2018-Feb-20
 #******************************************************************************#
-CC = g++
-LD = g++
+CC = g++-4.8
+LD = g++-4.8
 
 EXEC = testbench 
 
@@ -29,7 +29,7 @@ INCLUDE_SYSTEMC = -I${SYSTEMC_HOME}/include
 INCLUDES = $(INCLUDE_SYSTEMC)
 CFLAGS = -g -O0 -c -std=c++11 -Isimple_bus/include
 LDFLAGS = -L${SYSTEMC_HOME}/lib-linux64 -lsystemc -Lsimple_bus
-LDPATH = export LD_LIBRARY_PATH=${SYSTEMC_HOME}/lib-linux64
+LDPATH = export LD_LIBRARY_PATH="/home/guy/crave/deps/lingeling-ayv-86bf266-140429/lib":"/home/guy/crave/deps/boolector-2.2.0/lib":"/home/guy/crave/deps/boost-1_55_0-fs/lib":"/home/guy/crave/deps/glog-git-0.3.3/lib":"/home/guy/crave/deps/cudd-3.0.0/lib":"/home/guy/crave/deps/minisat-git/lib":"/home/guy/crave/build/root/lib":"/home/guy/crave/deps/systemc-2.3.1/lib-linux64"
 SRCFILES = $(wildcard src/*.cpp)
 
 OBJFILES = $(patsubst %.cpp, obj/%.o, ${SRCFILES})

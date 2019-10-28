@@ -6,6 +6,7 @@
 #include "simple_bus_types.h"
 #include "simple_bus_slave_if.h"
 #include "packet.h"
+#include "simple_bus_blocking_if.h"
 
 
 class copro1_adapt_slave
@@ -25,9 +26,11 @@ public:
 	sc_out<bool> valid;
 	sc_in<bool> next;
 
+	sc_port<simple_bus_blocking_if> bus_port;
+
 	sc_fifo_in<Packet*> packet_in;
 	// Paquet local au module coprocesseur 1
-        Packet pkt;
+    Packet pkt;
 
 
 
@@ -72,13 +75,14 @@ public:
 		dont_initialize();	// wait_loop ne sera pas appelé une première fois
 		sensitive << clock.pos();
 		
-		SC_THREAD(to_monitor);	
+		SC_THREAD(to_monitor);
+		sensitive << clock.pos();
 
 		sc_assert(m_start_address <= m_end_address);
-    sc_assert((m_end_address-m_start_address+1)%4 == 0);
-    unsigned int size = (m_end_address-m_start_address+1)/4;
-    MEM = new unsigned int [size];
-    for (unsigned int i = 0; i < size; i++) {
+		sc_assert((m_end_address-m_start_address+1)%4 == 0);
+		unsigned int size = (m_end_address-m_start_address+1)/4;
+		MEM = new unsigned int [size];
+		for (unsigned int i = 0; i < size; i++) {
 			MEM[i] = 0;
 		}
 	}

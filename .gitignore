@@ -6,3 +6,4 @@ testbench
 *.o
 tp2/main
 tp2/crave.cfg
+tp2/coverage_results.xml

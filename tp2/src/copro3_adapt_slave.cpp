@@ -77,14 +77,28 @@ void copro3_adapt_slave::pkt_send3(void)
 
 void copro3_adapt_slave::to_monitor(void)
 {
-        while(1)
-        {
-                cout << "COPRO3_ADAPT : Attente paquet trie" << endl;
-                pkt = *packet_in.read(); // Attendre la lecture bloquante
-                cout << "COPRO3_ADAPT : Recuperation du paquet trie" << endl;
-                // write du paquet au moniteur
-                //cout << pkt;
-        }
+	static bool lock = false;
+	static unsigned priority = 12;
+
+	const unsigned int addr = 768;
+	const unsigned int packet_size = 19;
+
+	simple_bus_status status;
+
+	while(1)
+	{
+		cout << "COPRO3_ADAPT : Attente paquet trie" << endl;
+		pkt = *packet_in.read(); // Attendre la lecture bloquante
+		cout << "COPRO3_ADAPT : Recuperation du paquet trie" << endl;
+		// write du paquet au moniteur
+		cout << "COPRO3_ADAPT : envoi du packet sur le bus" << endl;
+		status = bus_port->burst_write(priority, (int*)pkt.getPacket(), addr, packet_size, lock);
+
+		if (status == SIMPLE_BUS_ERROR) {
+			sb_fprintf(stdout, "%s %s : blocking-write failed at address %x\n",
+					sc_time_stamp().to_string().c_str(), name(), addr);
+		}
+	}
 }
 
 
