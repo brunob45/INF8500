@@ -1,0 +1,19 @@
+Stats for last 50 frames:
+    Average duration = 0.307353
+    Average FPS = 3.253588
+Stats for last 100 frames:
+    Average duration = 0.311869
+    Average FPS = 3.206477
+Stats for last 150 frames:
+    Average duration = 0.310340
+    Average FPS = 3.222270
+Stats for last 200 frames:
+    Average duration = 0.311851
+    Average FPS = 3.206657
+Stats for last 250 frames:
+    Average duration = 0.310938
+    Average FPS = 3.216079
+Stats for last 300 frames:
+    Average duration = 0.311845
+    Average FPS = 3.206717
+    
