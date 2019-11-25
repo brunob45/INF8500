@@ -1,0 +1,135 @@
+apply plugin: "cpp"
+
+def spacestudio_mingw64_directory = System.getenv('MINGW64_SPACESTUDIO_DIR');
+def opencv_include_directory = "$spacestudio_mingw64_directory/include"
+def opencv_lib_directory = "$spacestudio_mingw64_directory/lib"
+def mingw64_directory = "$spacestudio_mingw64_directory";
+def mingw32_lib_directory = "$spacestudio_mingw64_directory/x86_64-w64-mingw32/lib";
+
+model {
+    platforms {
+        x64 {
+            architecture "x86_64"
+        }
+    }
+	components {
+		tcpip_server(NativeExecutableSpec) {
+			targetPlatform "x64"
+			sources {
+				cpp {
+					source {
+						srcDir "src"
+						include "*.cpp"
+					}
+					lib library: 'opencv_includes', linkage: 'api'
+					lib library: 'opencv_highgui', linkage: 'static'
+					lib library: 'opencv_imgproc', linkage: 'static'
+					lib library: 'opencv_core', linkage: 'static'
+					lib library: 'opencv_imgcodecs', linkage: 'static'
+					lib library: 'ws2_32', linkage: 'static'
+					lib library: 'wsock32', linkage: 'static'
+					lib library: 'gdi32', linkage: 'static'
+					lib library: 'comdlg32', linkage: 'static'
+					lib library: 'zlib', linkage: 'static'
+					lib library: 'jpeg', linkage: 'static'
+					/* lib library: 'webp', linkage: 'static' */ /* This makes it fail at Polytechnique*/
+					lib library: 'tiff', linkage: 'static'
+					lib library: 'png', linkage: 'static'
+					lib library: 'jasper', linkage: 'static'
+				}
+			}
+		}
+	}
+	binaries {
+		all {
+			linker.args '-static'
+		
+		}
+	}
+}
+
+model {
+	toolChains {
+		mingw_x86_64(Gcc) {
+			path "$mingw64_directory/bin"
+			target("windows_x86_64")
+		}
+	}
+	repositories {
+		libs(PrebuiltLibraries) {
+			opencv_includes {
+				headers.srcDir "$opencv_include_directory"
+			}
+			opencv_highgui {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$opencv_lib_directory/libopencv_highgui.dll.a")
+				}
+			}
+			opencv_imgproc {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$opencv_lib_directory/libopencv_imgproc.dll.a")
+				}
+			}
+			opencv_core {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$opencv_lib_directory/libopencv_core.dll.a")
+				}
+			}
+			opencv_imgcodecs {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$opencv_lib_directory/libopencv_imgcodecs.dll.a")
+				}
+			}
+			ws2_32 {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$mingw32_lib_directory/libws2_32.a")
+				}
+			}
+			wsock32 {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$mingw32_lib_directory/libwsock32.a")
+				}
+			}
+			gdi32 {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$mingw32_lib_directory/libgdi32.a")
+				}
+			}
+			comdlg32 {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$mingw32_lib_directory/libcomdlg32.a")
+				}
+			}
+			zlib {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$mingw64_directory/lib/libz.a")
+				}
+			}
+			jpeg {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$mingw64_directory/lib/libjpeg.a")
+				}
+			}
+			webp {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$mingw64_directory/lib/libwebp.a")
+				}
+			}
+			tiff {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$mingw64_directory/lib/libtiff.a")
+				}
+			}
+			png {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$mingw64_directory/lib/libpng.a")
+				}
+			}
+			jasper {
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("$mingw64_directory/lib/libjasper.a")
+				}
+			}	
+		}
+	}
+}

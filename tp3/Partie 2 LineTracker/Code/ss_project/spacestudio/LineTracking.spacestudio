@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project name="LineTracking" version="3.3.0" xmlns="http://www.spacecodesign.com/schemas/3.0/project.xsd">
+    <solutions>sequential</solutions>
+    <solutions>filter_hw</solutions>
+</project>

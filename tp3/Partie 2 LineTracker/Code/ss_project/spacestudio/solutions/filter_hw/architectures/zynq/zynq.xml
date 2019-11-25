@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+********************************************************************************
+
+	Author : SpaceStudio generation engine
+
+	Warning: This file content will be overwritten by the configuration manager.
+
+********************************************************************************
+ -->
+<project
+	name="LineTracking"
+	ConfigName="zynq"
+	SpaceStudioVersion="3.3.0">
+
+	<InstanceList>
+		<component
+			type="Adapter"
+			subtype="InterfaceRange"
+			InstanceName="zynq0_DDR_InterfaceRange0"
+			id="11"
+			id_key="DDR_ID"
+			verbose="false"
+			ulMinAddressRange="0x100"
+			ulBaseAddress="0x00000000"
+			ulHighAddress="0x3FFFFFFF"
+			isFixRange="true">
+
+			<RequisiteFor
+				id="arm.ddr"
+				type="ISS"
+				subtype="zynq"
+				instancename="zynq0">
+			</RequisiteFor>
+
+		</component>
+
+		<component
+			type="Adapter"
+			subtype="SimulationHelper"
+			InstanceName="SimulationHelper0"
+			id="14"
+			id_key="SIMULATIONHELPER0_ID"
+			verbose="false"
+			isFixRange="false"
+			ulMinAddressRange="0x8"
+			ulBaseAddress="0x40007000"
+			ulHighAddress="0x40007FFF"
+			is_simulation_only="true">
+
+			<RequisiteFor
+				id="arm.core0.simulation_helper"
+				type="Core"
+				subtype="zynq_distlm.core0"
+				instancename="zynq0.core0">
+			</RequisiteFor>
+
+		</component>
+
+		<component
+			type="Bus"
+			subtype="AMBA_AXIBus_LT"
+			InstanceName="AMBA_AXIBus_LT0"
+			id_key="AMBA_AXIBUS_LT0_ID"
+			id="6"
+			uiChannelWidth="4"
+			verbose="false"
+			ptrAddress="0"
+			ulBaseAddress="0x0"
+			ulHighAddress="0xFFFFFFFF"
+			isFixRange="true"
+			ulMaxComponentSize="0x100000000"
+			ulMinComponentSize="0x1000"
+			SystemClock="SysClock"
+			SoftwareCodeBigEndian="false"
+			axiPolicy="AXI_INTERCONNECT_SHARED_ALL"
+			ArbitrationLatency="1"
+			TransferLatency="12"
+			AcknowledgmentLatency="1">
+		</component>
+
+		<component
+			type="Bus"
+			subtype="AMBA_AXIBus_LT"
+			InstanceName="zynq0_HP0_AMBA_AXIBus_LT0"
+			id_key="ZYNQ0_HP0_AMBA_AXIBUS_LT0_ID"
+			id="12"
+			uiChannelWidth="4"
+			verbose="false"
+			ptrAddress="0"
+			ulBaseAddress="0x0"
+			ulHighAddress="0xFFFFFFFF"
+			isFixRange="true"
+			ulMaxComponentSize="0x100000000"
+			ulMinComponentSize="0x1000"
+			SystemClock="SysClock"
+			SoftwareCodeBigEndian="false"
+			axiPolicy="AXI_INTERCONNECT_SHARED_ALL"
+			ArbitrationLatency="1"
+			TransferLatency="12"
+			AcknowledgmentLatency="1">
+
+			<RequisiteFor
+				id="arm.hp0"
+				type="ISS"
+				subtype="zynq"
+				instancename="zynq0">
+			</RequisiteFor>
+
+		</component>
+
+		<component
+			type="ISS"
+			subtype="zynq"
+			InstanceName="zynq0"
+			id="8"
+			id_key="ZYNQ0_ID"
+			ptrAddress=""
+			prio="1"
+			prio_key="ZYNQ0_PRIO"
+			verbose="false"
+			main_memory_both_miss_penalty="20"
+			l1_inst_cache="true"
+			l1_inst_cache_size="0x8000"
+			l1_inst_words_per_cacheline="8"
+			l1_inst_associativity="4-way"
+			l1_inst_replacement_policy="LRU"
+			l1_inst_write_policy="Write-back"
+			l1_inst_write_miss_behaviour="Write_allocate"
+			l1_inst_cache_access_latency="1"
+			l1_inst_miss_penalty="3"
+			l1_data_cache="true"
+			l1_data_cache_size="0x8000"
+			l1_data_words_per_cacheline="8"
+			l1_data_associativity="4-way"
+			l1_data_replacement_policy="LRU"
+			l1_data_write_policy="Write-back"
+			l1_data_write_miss_behaviour="Write_allocate"
+			l1_data_cache_access_latency="1"
+			l1_data_miss_penalty="3"
+			l2_both_cache="true"
+			l2_both_cache_size="0x80000"
+			l2_both_words_per_cacheline="8"
+			l2_both_associativity="8-way"
+			l2_both_replacement_policy="LRU"
+			l2_both_write_policy="Write-back"
+			l2_both_write_miss_behaviour="Write_allocate"
+			l2_both_cache_access_latency="3"
+			l2_both_miss_penalty="20"
+			SoftwareCodeBigEndian="false"
+			clockFrequency="800000000"
+			tickFrequency="100"
+			MPtype="SMP"
+			nb_cores="2"
+			hostname="localhost"
+			port="1024"
+			isServer="false"
+			taskSwitchAddress="0xc010b91c"
+			taskPidOffset="760"
+			tiTaskOffset="12">
+
+			<model
+				name="zynq_distlm">
+			</model>
+			
+		</component>
+
+		<component
+			type="Core"
+			subtype="zynq_distlm.core0"
+			id_key="ZYNQ0_CORE0_ID"
+			id="9"
+			zBinaryFileName="../zynq0/zynq0.core0.arm_a9.elf"
+			rtos="linux"
+			InstanceName="zynq0.core0">
+		</component>
+
+		<component
+			type="Core"
+			subtype="zynq_distlm.core1"
+			id_key="ZYNQ0_CORE1_ID"
+			id="10"
+			zBinaryFileName="0"
+			rtos="linux"
+			InstanceName="zynq0.core1">
+		</component>
+
+		<component
+			type="Module"
+			subtype="STANDARD"
+			basicName="display"
+			HeaderFileName="Undefined"
+			InstanceName="display0"
+			id_key="DISPLAY0_ID"
+			id="1"
+			prio_key="DISPLAY0_PRIO"
+			prio="2"
+			index="0"
+			verbose="false"
+			SystemClock="SysClock">
+		</component>
+
+		<component
+			type="Module"
+			subtype="STANDARD"
+			basicName="filter"
+			HeaderFileName="Undefined"
+			InstanceName="filter0"
+			id_key="FILTER0_ID"
+			id="7"
+			prio_key="FILTER0_PRIO"
+			prio="6"
+			index="0"
+			verbose="false"
+			SystemClock="SysClock">
+		</component>
+
+		<component
+			type="Module"
+			subtype="STANDARD"
+			basicName="line_detection"
+			HeaderFileName="Undefined"
+			InstanceName="line_detection0"
+			id_key="LINE_DETECTION0_ID"
+			id="2"
+			prio_key="LINE_DETECTION0_PRIO"
+			prio="3"
+			index="0"
+			verbose="false"
+			SystemClock="SysClock">
+		</component>
+
+		<component
+			type="Module"
+			subtype="STANDARD"
+			basicName="master"
+			HeaderFileName="Undefined"
+			InstanceName="master0"
+			id_key="MASTER0_ID"
+			id="3"
+			prio_key="MASTER0_PRIO"
+			prio="4"
+			index="0"
+			verbose="false"
+			SystemClock="SysClock">
+		</component>
+
+		<component
+			type="Module"
+			subtype="STANDARD"
+			basicName="reception"
+			HeaderFileName="Undefined"
+			InstanceName="reception0"
+			id_key="RECEPTION0_ID"
+			id="4"
+			prio_key="RECEPTION0_PRIO"
+			prio="5"
+			index="0"
+			verbose="false"
+			SystemClock="SysClock">
+		</component>
+
+		<component
+			type="PIC"
+			subtype="XilinxPIC"
+			InstanceName="XilinxPIC0"
+			id_key="XILINXPIC0_ID"
+			id="13"
+			ulMinAddressRange="0x100"
+			ulBaseAddress="0x40008000"
+			ulHighAddress="0x40008FFF"
+			isFixRange="false"
+			verbose="false">
+
+			<RequisiteFor
+				id="arm.core0.pic"
+				type="Core"
+				subtype="zynq_distlm.core0"
+				instancename="zynq0.core0">
+			</RequisiteFor>
+
+		</component>
+
+		<component
+			type="RegisterFile"
+			subtype="RegisterFile"
+			InstanceName="RegisterFile0"
+			id_key="REGISTERFILE0_ID"
+			id="0">
+		</component>
+
+		<component
+			type="ResetManager"
+			subtype="ResetManager"
+			InstanceName="reset_manager"
+			verbose="false"
+			reset_hold="1"
+			running_period="10"
+			running_unit="SC_MS">
+		</component>
+
+		<signal
+			type="Signal"
+			subtype="sc_clock"
+			InstanceName="SysClock"
+			DutyCycle="0.5"
+			Period="10"
+			PeriodTimeUnit="SC_NS">
+		</signal>
+
+		<component
+			type="UserDevice"
+			subtype="UserDeviceSlave"
+			basicName="simulation_timer"
+			InstanceName="simulation_timer"
+			id_key="SIMULATION_TIMER_ID"
+			id="5"
+			verbose="false"
+			ulSize="0x20000"
+			ulMinAddressRange="0x1000000"
+			ulBaseAddress="0x41000000"
+			ulHighAddress="0x41FFFFFF"
+			isFixRange="false"
+			is_simulation_only="true">
+		</component>
+
+
+	</InstanceList>
+	
+	<Binding>
+
+		<ComponentLevel>
+
+			<component
+				type="Adapter"
+				subtype="InterfaceRange"
+				instancename="zynq0_DDR_InterfaceRange0">
+			</component>
+
+			<component
+				type="Adapter"
+				subtype="SimulationHelper"
+				instancename="SimulationHelper0">
+			</component>
+
+			<component
+				type="Bus"
+				subtype="AMBA_AXIBus_LT"
+				instancename="AMBA_AXIBus_LT0">
+				
+				<component
+					type="ISS"
+					SubType="zynq"
+					InstanceName="zynq0">
+
+					<port
+						name="DBusPort"
+						value="AMBA_AXIBus_LT0">
+
+					</port>
+
+					<component
+						type="Core"
+						SubType="zynq_distlm.core0"
+						InstanceName="zynq0.core0">
+
+						<component
+							type="Module"
+							SubType="STANDARD"
+							basicName="line_detection"
+							InstanceName="line_detection0">
+
+						</component>
+
+						<component
+							type="Module"
+							SubType="STANDARD"
+							basicName="master"
+							InstanceName="master0">
+
+						</component>
+
+					</component>
+
+					<component
+						type="Core"
+						SubType="zynq_distlm.core1"
+						InstanceName="zynq0.core1">
+
+					</component>
+
+				</component>
+
+				<component
+					type="Adapter"
+					SubType="SimulationHelper"
+					InstanceName="SimulationHelper0">
+
+				</component>
+
+				<component
+					type="PIC"
+					SubType="XilinxPIC"
+					InstanceName="XilinxPIC0">
+
+				</component>
+
+				<component
+					type="UserDevice"
+					SubType="UserDeviceSlave"
+					basicName="simulation_timer"
+					InstanceName="simulation_timer">
+
+				</component>
+
+			</component>
+
+			<component
+				type="Bus"
+				subtype="AMBA_AXIBus_LT"
+				instancename="zynq0_HP0_AMBA_AXIBus_LT0">
+				
+				<component
+					type="Adapter"
+					SubType="InterfaceRange"
+					InstanceName="zynq0_DDR_InterfaceRange0">
+
+					<port
+						name="SlaveIFPort"
+						value="zynq0"
+						target="HP0">
+
+					</port>
+
+				</component>
+
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="display"
+					InstanceName="display0">
+
+				</component>
+
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="reception"
+					InstanceName="reception0">
+
+				</component>
+
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="filter"
+					InstanceName="filter0">
+
+				</component>
+
+			</component>
+
+			<component
+				type="ISS"
+				subtype="zynq"
+				instancename="zynq0">
+				
+				<component
+					type="Core"
+					SubType="zynq_distlm.core0"
+					InstanceName="zynq0.core0">
+
+					<component
+						type="Module"
+						SubType="STANDARD"
+						basicName="line_detection"
+						InstanceName="line_detection0">
+
+					</component>
+
+					<component
+						type="Module"
+						SubType="STANDARD"
+						basicName="master"
+						InstanceName="master0">
+
+					</component>
+
+				</component>
+
+				<component
+					type="Core"
+					SubType="zynq_distlm.core1"
+					InstanceName="zynq0.core1">
+
+				</component>
+
+			</component>
+
+			<component
+				type="Core"
+				subtype="zynq_distlm.core0"
+				instancename="zynq0.core0">
+				
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="line_detection"
+					InstanceName="line_detection0">
+
+				</component>
+
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="master"
+					InstanceName="master0">
+
+				</component>
+
+			</component>
+
+			<component
+				type="Core"
+				subtype="zynq_distlm.core1"
+				instancename="zynq0.core1">
+			</component>
+
+			<component
+				type="Module"
+				subtype="STANDARD"
+				basicName="display"
+				instancename="display0">
+			</component>
+
+			<component
+				type="Module"
+				subtype="STANDARD"
+				basicName="filter"
+				instancename="filter0">
+			</component>
+
+			<component
+				type="Module"
+				subtype="STANDARD"
+				basicName="line_detection"
+				instancename="line_detection0">
+			</component>
+
+			<component
+				type="Module"
+				subtype="STANDARD"
+				basicName="master"
+				instancename="master0">
+			</component>
+
+			<component
+				type="Module"
+				subtype="STANDARD"
+				basicName="reception"
+				instancename="reception0">
+			</component>
+
+			<component
+				type="PIC"
+				subtype="XilinxPIC"
+				instancename="XilinxPIC0">
+			</component>
+
+			<component
+				type="RegisterFile"
+				subtype="RegisterFile"
+				instancename="RegisterFile0">
+			</component>
+
+			<component
+				type="ResetManager"
+				subtype="ResetManager"
+				instancename="reset_manager">
+			</component>
+
+			<component
+				type="UserDevice"
+				subtype="UserDeviceSlave"
+				basicName="simulation_timer"
+				instancename="simulation_timer">
+			</component>
+
+
+		</ComponentLevel>
+
+		<InterruptLevel>
+			<component
+				type="PIC"
+				subtype="XilinxPIC"
+				instancename="XilinxPIC0">
+
+				<OutPort
+					name="IRQOutPort"
+					position="0">
+
+					<ConnectedTo>
+
+						<Component
+							type="ISS"
+							subtype="zynq"
+							instancename="zynq0">
+
+							<InPort
+								name="SPI0InPort"
+								position="0">
+
+							</InPort>
+
+
+						</Component>
+					</ConnectedTo>
+				</OutPort>
+
+			</component>
+
+		</InterruptLevel>
+	</Binding>
+
+</project>

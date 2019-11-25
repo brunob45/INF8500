@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<solution name="filter_hw" version="3.3.0" xmlns="http://www.spacecodesign.com/schemas/3.0/solution.xsd">
+    <linker flags="" name="mingw"/>
+    <linker flags="" name="microblaze.Baremetal"/>
+    <linker flags="" name="nios_ii.Baremetal"/>
+    <linker flags="" name="leon3.BCC"/>
+    <linker flags="" name="leon3.RTEMS"/>
+    <linker flags="" name="arm_a9.Baremetal"/>
+    <linker flags="" name="arm_a9.Linux"/>
+    <linker flags="" name="arm_r5.Baremetal"/>
+    <linker flags="" name="arm_a53.Linux"/>
+    <modules>
+        <module name="display">
+            <file>%project_directory%/import/src/client_socket_helper.h</file>
+            <file>%project_directory%/import/src/generic_throughput.cpp</file>
+            <file>%project_directory%/import/src/simtek_throughput.cpp</file>
+            <file>%project_directory%/import/src/gt.h</file>
+            <file>%project_directory%/import/src/map_helper.c</file>
+            <file>%project_directory%/import/src/gt.c</file>
+            <file>%project_directory%/import/src/client_socket_helper.cpp</file>
+            <file>%project_directory%/import/src/client_handler.h</file>
+            <file>%project_directory%/import/src/genx_throughput.cpp</file>
+            <file>%project_directory%/import/src/client_handler.cpp</file>
+            <file>%project_directory%/import/src/map_helper.h</file>
+            <file>%project_directory%/import/src/genx_throughput.h</file>
+            <file>%project_directory%/import/src/throughput_if.h</file>
+            <file>%project_directory%/import/src/generic_throughput.h</file>
+            <file>%project_directory%/import/src/simtek_throughput.h</file>
+            <file>%project_directory%/import/src/linux_throughput.cpp</file>
+            <file>%project_directory%/import/src/linux_throughput.h</file>
+            <compiler flags="" name="mingw"/>
+            <compiler flags="" name="microblaze.Baremetal"/>
+            <compiler flags="" name="nios_ii.Baremetal"/>
+            <compiler flags="" name="leon3.BCC"/>
+            <compiler flags="" name="leon3.RTEMS"/>
+            <compiler flags="" name="arm_a9.Baremetal"/>
+            <compiler flags="" name="arm_a9.Linux"/>
+            <compiler flags="" name="arm_r5.Baremetal"/>
+            <compiler flags="" name="arm_a53.Linux"/>
+        </module>
+        <module name="line_detection">
+            <compiler flags="" name="mingw"/>
+            <compiler flags="" name="microblaze.Baremetal"/>
+            <compiler flags="" name="nios_ii.Baremetal"/>
+            <compiler flags="" name="leon3.BCC"/>
+            <compiler flags="" name="leon3.RTEMS"/>
+            <compiler flags="" name="arm_a9.Baremetal"/>
+            <compiler flags="" name="arm_a9.Linux"/>
+            <compiler flags="" name="arm_r5.Baremetal"/>
+            <compiler flags="" name="arm_a53.Linux"/>
+        </module>
+        <module name="master">
+            <compiler flags="" name="mingw"/>
+            <compiler flags="" name="microblaze.Baremetal"/>
+            <compiler flags="" name="nios_ii.Baremetal"/>
+            <compiler flags="" name="leon3.BCC"/>
+            <compiler flags="" name="leon3.RTEMS"/>
+            <compiler flags="" name="arm_a9.Baremetal"/>
+            <compiler flags="" name="arm_a9.Linux"/>
+            <compiler flags="" name="arm_r5.Baremetal"/>
+            <compiler flags="" name="arm_a53.Linux"/>
+        </module>
+        <module name="reception">
+            <file>%project_directory%/import/src/client_socket_helper.h</file>
+            <file>%project_directory%/import/src/client_socket_helper.cpp</file>
+            <file>%project_directory%/import/src/client_handler.h</file>
+            <file>%project_directory%/import/src/client_handler.cpp</file>
+            <compiler flags="" name="mingw"/>
+            <compiler flags="" name="microblaze.Baremetal"/>
+            <compiler flags="" name="nios_ii.Baremetal"/>
+            <compiler flags="" name="leon3.BCC"/>
+            <compiler flags="" name="leon3.RTEMS"/>
+            <compiler flags="" name="arm_a9.Baremetal"/>
+            <compiler flags="" name="arm_a9.Linux"/>
+            <compiler flags="" name="arm_r5.Baremetal"/>
+            <compiler flags="" name="arm_a53.Linux"/>
+        </module>
+        <module name="filter">
+            <compiler flags="" name="mingw"/>
+            <compiler flags="" name="microblaze.Baremetal"/>
+            <compiler flags="" name="nios_ii.Baremetal"/>
+            <compiler flags="" name="leon3.BCC"/>
+            <compiler flags="" name="leon3.RTEMS"/>
+            <compiler flags="" name="arm_a9.Baremetal"/>
+            <compiler flags="" name="arm_a9.Linux"/>
+            <compiler flags="" name="arm_r5.Baremetal"/>
+            <compiler flags="" name="arm_a53.Linux"/>
+        </module>
+    </modules>
+    <devices>
+        <device name="simulation_timer" type="SLAVE">
+            <compiler flags="" name="mingw"/>
+            <compiler flags="" name="microblaze.Baremetal"/>
+            <compiler flags="" name="nios_ii.Baremetal"/>
+            <compiler flags="" name="leon3.BCC"/>
+            <compiler flags="" name="leon3.RTEMS"/>
+            <compiler flags="" name="arm_a9.Baremetal"/>
+            <compiler flags="" name="arm_a9.Linux"/>
+            <compiler flags="" name="arm_r5.Baremetal"/>
+            <compiler flags="" name="arm_a53.Linux"/>
+        </device>
+    </devices>
+    <architectures>validation</architectures>
+    <architectures>zynq</architectures>
+</solution>

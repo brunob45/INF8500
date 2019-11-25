@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+********************************************************************************
+
+	Author : SpaceStudio generation engine
+
+	Warning: This file content will be overwritten by the configuration manager.
+
+********************************************************************************
+ -->
+<project
+	name="LineTracking"
+	ConfigName="validation"
+	SpaceStudioVersion="3.3.0">
+
+	<InstanceList>
+		<component
+			type="Bus"
+			subtype="AMBA_AXIBus_LT"
+			InstanceName="AMBA_AXIBus_LT0"
+			id_key="AMBA_AXIBUS_LT0_ID"
+			id="6"
+			uiChannelWidth="4"
+			verbose="false"
+			ptrAddress="0"
+			ulBaseAddress="0x0"
+			ulHighAddress="0xFFFFFFFF"
+			isFixRange="true"
+			ulMaxComponentSize="0x100000000"
+			ulMinComponentSize="0x1000"
+			SystemClock="SysClock"
+			SoftwareCodeBigEndian="false"
+			axiPolicy="AXI_INTERCONNECT_SHARED_ALL"
+			ArbitrationLatency="1"
+			TransferLatency="12"
+			AcknowledgmentLatency="1">
+		</component>
+
+		<component
+			type="Memory"
+			subtype="XilinxDDR"
+			InstanceName="XilinxDDR0"
+			id_key="DDR_ID"
+			id="7"
+			ulSize_key="XILINXDDR0_SIZE"
+			zUploadFileName="0"
+			verbose="false"
+			SoftwareCodeBigEndian="false"
+			ulMinAddressRange="0x1000"
+			ulBaseAddress="0x0"
+			ulHighAddress="0x1FFFFFFF"
+			isFixRange="true"
+			ulReadLatency="XILINX_DDR_READ_LATENCY"
+			ulSize="536870912"
+			ulWriteLatency="XILINX_DDR_WRITE_LATENCY">
+		</component>
+
+		<component
+			type="Module"
+			subtype="STANDARD"
+			basicName="display"
+			HeaderFileName="Undefined"
+			InstanceName="display0"
+			id_key="DISPLAY0_ID"
+			id="1"
+			prio_key="DISPLAY0_PRIO"
+			prio="1"
+			index="0"
+			verbose="false"
+			SystemClock="SysClock">
+		</component>
+
+		<component
+			type="Module"
+			subtype="STANDARD"
+			basicName="line_detection"
+			HeaderFileName="Undefined"
+			InstanceName="line_detection0"
+			id_key="LINE_DETECTION0_ID"
+			id="2"
+			prio_key="LINE_DETECTION0_PRIO"
+			prio="2"
+			index="0"
+			verbose="false"
+			SystemClock="SysClock">
+		</component>
+
+		<component
+			type="Module"
+			subtype="STANDARD"
+			basicName="master"
+			HeaderFileName="Undefined"
+			InstanceName="master0"
+			id_key="MASTER0_ID"
+			id="3"
+			prio_key="MASTER0_PRIO"
+			prio="3"
+			index="0"
+			verbose="false"
+			SystemClock="SysClock">
+		</component>
+
+		<component
+			type="Module"
+			subtype="STANDARD"
+			basicName="reception"
+			HeaderFileName="Undefined"
+			InstanceName="reception0"
+			id_key="RECEPTION0_ID"
+			id="4"
+			prio_key="RECEPTION0_PRIO"
+			prio="4"
+			index="0"
+			verbose="false"
+			SystemClock="SysClock">
+		</component>
+
+		<component
+			type="RegisterFile"
+			subtype="RegisterFile"
+			InstanceName="RegisterFile0"
+			id_key="REGISTERFILE0_ID"
+			id="0">
+		</component>
+
+		<component
+			type="ResetManager"
+			subtype="ResetManager"
+			InstanceName="reset_manager"
+			verbose="false"
+			reset_hold="1"
+			running_period="10"
+			running_unit="SC_MS">
+		</component>
+
+		<signal
+			type="Signal"
+			subtype="sc_clock"
+			InstanceName="SysClock"
+			DutyCycle="0.5"
+			Period="10"
+			PeriodTimeUnit="SC_NS">
+		</signal>
+
+		<component
+			type="UserDevice"
+			subtype="UserDeviceSlave"
+			basicName="simulation_timer"
+			InstanceName="simulation_timer"
+			id_key="SIMULATION_TIMER_ID"
+			id="5"
+			verbose="false"
+			ulSize="0x20000"
+			ulMinAddressRange="0x1000000"
+			ulBaseAddress="0x20000000"
+			ulHighAddress="0x20FFFFFF"
+			isFixRange="false"
+			is_simulation_only="false">
+		</component>
+
+
+	</InstanceList>
+	
+	<Binding>
+
+		<ComponentLevel>
+
+			<component
+				type="Bus"
+				subtype="AMBA_AXIBus_LT"
+				instancename="AMBA_AXIBus_LT0">
+				
+				<component
+					type="Memory"
+					SubType="XilinxDDR"
+					InstanceName="XilinxDDR0">
+
+				</component>
+
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="display"
+					InstanceName="display0">
+
+				</component>
+
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="line_detection"
+					InstanceName="line_detection0">
+
+				</component>
+
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="master"
+					InstanceName="master0">
+
+				</component>
+
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="reception"
+					InstanceName="reception0">
+
+				</component>
+
+				<component
+					type="UserDevice"
+					SubType="UserDeviceSlave"
+					basicName="simulation_timer"
+					InstanceName="simulation_timer">
+
+				</component>
+
+			</component>
+
+			<component
+				type="Memory"
+				subtype="XilinxDDR"
+				instancename="XilinxDDR0">
+			</component>
+
+			<component
+				type="Module"
+				subtype="STANDARD"
+				basicName="display"
+				instancename="display0">
+			</component>
+
+			<component
+				type="Module"
+				subtype="STANDARD"
+				basicName="line_detection"
+				instancename="line_detection0">
+			</component>
+
+			<component
+				type="Module"
+				subtype="STANDARD"
+				basicName="master"
+				instancename="master0">
+			</component>
+
+			<component
+				type="Module"
+				subtype="STANDARD"
+				basicName="reception"
+				instancename="reception0">
+			</component>
+
+			<component
+				type="RegisterFile"
+				subtype="RegisterFile"
+				instancename="RegisterFile0">
+			</component>
+
+			<component
+				type="ResetManager"
+				subtype="ResetManager"
+				instancename="reset_manager">
+			</component>
+
+			<component
+				type="UserDevice"
+				subtype="UserDeviceSlave"
+				basicName="simulation_timer"
+				instancename="simulation_timer">
+			</component>
+
+
+		</ComponentLevel>
+
+	</Binding>
+
+</project>

@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+# THIS SCRIPTS BUILDS THE SERVER IF NEEDED BE.
+
+THIS_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+
+cd "${THIS_SCRIPT_DIR}"
+
+if [ -z "$MINGW64_SPACESTUDIO_DIR" ]; then
+    echo "Please set the MINGW64_SPACESTUDIO_DIR variable before running this script." >&2
+    echo 'You can download the SpaceStudio MinGW64 toolchain here: ' >&2
+    echo 'https://github.com/anthonyd973/MinGW64_SpaceStudio' >&2
+    echo 'Unzip it somewhere (e.g. on a USB stick), then set the variable with:' >&2
+    echo '    $ export MINGW64_SPACESTUDIO_DIR="<unzipped_dir>" # For example, <unzipped_dir> == /h/mingw64' >&2
+    exit 1
+fi
+
+echo 'Calling the gradle build (This can take a minute. Or two. Or three.)'
+
+export PATH="${MINGW64_SPACESTUDIO_DIR}:${PATH}"
+export SPACE_CODESIGN_DEV="/c/SpaceCodesign/SpaceStudio-3.3.0"
+./gradlew build
