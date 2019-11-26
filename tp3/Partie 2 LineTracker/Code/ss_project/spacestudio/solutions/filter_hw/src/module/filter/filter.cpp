@@ -26,6 +26,9 @@ filter::filter(sc_core::sc_module_name name, double period, sc_core::sc_time_uni
 	SC_THREAD(thread);
 }
 
+unsigned char my_abs(int value) {
+  return (value < 0) ? -value : value;
+}
 
 /** convolution: Computes the convolution between the input matrix and the convolution mask (kernel) of size kernel_size
  *
@@ -86,7 +89,7 @@ D:				for (int kx = 0; kx < kernel_size; kx++){
 			}
 
 			// Put the result in output memory using a buffer
-			m_pixels_buffer_out_filter.array[m_pixels_buffer_out_filter.memory_offset] = (unsigned char) std::abs((double)(sum /KERNEL_DIVISOR));
+			m_pixels_buffer_out_filter.array[m_pixels_buffer_out_filter.memory_offset] = my_abs(sum / KERNEL_DIVISOR);
 			m_pixels_buffer_out_filter.memory_offset++;
 
 			// For loop B
@@ -106,12 +109,12 @@ void filter::thread() {
 		ModuleRead(LINE_DETECTION0_ID, SPACE_BLOCKING, &width_scaled);
 		ModuleRead(LINE_DETECTION0_ID, SPACE_BLOCKING, &address_2_read);
 		ModuleRead(LINE_DETECTION0_ID, SPACE_BLOCKING, &address_2_write);
-		
-		DeviceRead(DDR_ID, address_2_read, (int*) &m_pixels_buffer_out_resize, sizeof(m_pixels_buffer_out_resize));
+
+		DeviceRead(DDR_ID, address_2_read, (int*) m_pixels_buffer_out_resize.array, LINE_DETECTION_OUTPUT_BUFFER_SIZE/4);
 
 		convolution_filter(height_scaled, width_scaled, KERNEL_MATRIX_SIZE);
 
-		DeviceWrite(DDR_ID, address_2_write, (int*) &m_pixels_buffer_out_filter, sizeof(m_pixels_buffer_out_filter));
+		DeviceWrite(DDR_ID, address_2_write, (int*) m_pixels_buffer_out_filter.array, LINE_DETECTION_OUTPUT_BUFFER_SIZE/4);
 
 		int ack = 1;
 		ModuleWrite(LINE_DETECTION0_ID, SPACE_BLOCKING, &ack);

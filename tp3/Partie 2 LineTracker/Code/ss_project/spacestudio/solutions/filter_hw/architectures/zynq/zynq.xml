@@ -44,8 +44,8 @@
 			verbose="false"
 			isFixRange="false"
 			ulMinAddressRange="0x8"
-			ulBaseAddress="0x40007000"
-			ulHighAddress="0x40007FFF"
+			ulBaseAddress="0x40005000"
+			ulHighAddress="0x40005FFF"
 			is_simulation_only="true">
 
 			<RequisiteFor
@@ -267,8 +267,8 @@
 			id_key="XILINXPIC0_ID"
 			id="13"
 			ulMinAddressRange="0x100"
-			ulBaseAddress="0x40008000"
-			ulHighAddress="0x40008FFF"
+			ulBaseAddress="0x40006000"
+			ulHighAddress="0x40006FFF"
 			isFixRange="false"
 			verbose="false">
 
@@ -380,6 +380,22 @@
 
 						</component>
 
+						<component
+							type="Module"
+							SubType="STANDARD"
+							basicName="display"
+							InstanceName="display0">
+
+						</component>
+
+						<component
+							type="Module"
+							SubType="STANDARD"
+							basicName="reception"
+							InstanceName="reception0">
+
+						</component>
+
 					</component>
 
 					<component
@@ -437,22 +453,6 @@
 				<component
 					type="Module"
 					SubType="STANDARD"
-					basicName="display"
-					InstanceName="display0">
-
-				</component>
-
-				<component
-					type="Module"
-					SubType="STANDARD"
-					basicName="reception"
-					InstanceName="reception0">
-
-				</component>
-
-				<component
-					type="Module"
-					SubType="STANDARD"
 					basicName="filter"
 					InstanceName="filter0">
 
@@ -486,6 +486,22 @@
 
 					</component>
 
+					<component
+						type="Module"
+						SubType="STANDARD"
+						basicName="display"
+						InstanceName="display0">
+
+					</component>
+
+					<component
+						type="Module"
+						SubType="STANDARD"
+						basicName="reception"
+						InstanceName="reception0">
+
+					</component>
+
 				</component>
 
 				<component
@@ -515,6 +531,22 @@
 					SubType="STANDARD"
 					basicName="master"
 					InstanceName="master0">
+
+				</component>
+
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="display"
+					InstanceName="display0">
+
+				</component>
+
+				<component
+					type="Module"
+					SubType="STANDARD"
+					basicName="reception"
+					InstanceName="reception0">
 
 				</component>
 

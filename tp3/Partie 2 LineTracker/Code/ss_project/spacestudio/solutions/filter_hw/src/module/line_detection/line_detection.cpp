@@ -93,9 +93,9 @@ void line_detection::thread(void) {
 
 		//Passage des parametres par Registre
 		unsigned int output_memory_offset = sizeof(m_pixels_buffer_out_resize)*2;
-		unsigned int address_2_read = input_address + output_memory_offset;
+		unsigned int address_2_read = 0x20000000; // input_address + output_memory_offset;
 		unsigned int address_2_write = address_2_read + output_memory_offset;
-		DeviceWrite(DDR_ID, address_2_read, (int*) &m_pixels_buffer_out_resize, sizeof(m_pixels_buffer_out_resize));
+		DeviceWrite(DDR_ID, address_2_read, (int*) m_pixels_buffer_out_resize.array, LINE_DETECTION_OUTPUT_BUFFER_SIZE/4);
 
 		ModuleWrite(FILTER0_ID, SPACE_BLOCKING, &height_scaled);
 		ModuleWrite(FILTER0_ID, SPACE_BLOCKING, &width_scaled);
@@ -105,7 +105,7 @@ void line_detection::thread(void) {
 		int ack = 0;
 		ModuleRead(FILTER0_ID, SPACE_BLOCKING, &ack);
 
-		DeviceRead(DDR_ID, address_2_write, (int*) &m_pixels_buffer_out_filter, sizeof(m_pixels_buffer_out_filter));
+		DeviceRead(DDR_ID, address_2_write, (int*) m_pixels_buffer_out_filter.array, LINE_DETECTION_OUTPUT_BUFFER_SIZE/4);
 
 
 		// --------------------------------------------------------------------------

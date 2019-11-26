@@ -27,7 +27,7 @@ display::display(sc_core::sc_module_name name, double period, sc_core::sc_time_u
 #if MAPPING == HW_MAPPING
 	m_socket = new client_handler(this->name(), "localhost" , "5016");
 #else
-	m_socket = new client_handler(this->name(), "10.0.3.130" , "5016");
+	m_socket = new client_handler(this->name(), "132.207.29.84" , "5016");
 #endif
 }
 
