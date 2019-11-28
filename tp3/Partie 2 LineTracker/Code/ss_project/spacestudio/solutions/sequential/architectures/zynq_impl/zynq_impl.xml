@@ -10,7 +10,7 @@
  -->
 <project
 	name="LineTracking"
-	ConfigName="zynq"
+	ConfigName="zynq_impl"
 	SpaceStudioVersion="3.3.0">
 
 	<InstanceList>
@@ -170,7 +170,7 @@
 			subtype="zynq_distlm.core0"
 			id_key="ZYNQ0_CORE0_ID"
 			id="9"
-			zBinaryFileName="../../../../../../../../../Zynq_impl/processors/zynq0/zynq0.core0.arm_a9.elf"
+			zBinaryFileName="../../../../../../../../../zynq_impl_sw/processors/zynq0/zynq0.core0.arm_a9.elf"
 			rtos="linux"
 			InstanceName="zynq0.core0">
 		</component>
@@ -195,21 +195,6 @@
 			id="1"
 			prio_key="DISPLAY0_PRIO"
 			prio="2"
-			index="0"
-			verbose="false"
-			SystemClock="SysClock">
-		</component>
-
-		<component
-			type="Module"
-			subtype="STANDARD"
-			basicName="filter"
-			HeaderFileName="Undefined"
-			InstanceName="filter0"
-			id_key="FILTER0_ID"
-			id="7"
-			prio_key="FILTER0_PRIO"
-			prio="6"
 			index="0"
 			verbose="false"
 			SystemClock="SysClock">
@@ -267,8 +252,8 @@
 			id_key="XILINXPIC0_ID"
 			id="13"
 			ulMinAddressRange="0x100"
-			ulBaseAddress="0x40005000"
-			ulHighAddress="0x40005FFF"
+			ulBaseAddress="0x40003000"
+			ulHighAddress="0x40003FFF"
 			isFixRange="false"
 			verbose="false">
 
@@ -450,14 +435,6 @@
 
 				</component>
 
-				<component
-					type="Module"
-					SubType="STANDARD"
-					basicName="filter"
-					InstanceName="filter0">
-
-				</component>
-
 			</component>
 
 			<component
@@ -563,13 +540,6 @@
 				subtype="STANDARD"
 				basicName="display"
 				instancename="display0">
-			</component>
-
-			<component
-				type="Module"
-				subtype="STANDARD"
-				basicName="filter"
-				instancename="filter0">
 			</component>
 
 			<component

@@ -23,7 +23,7 @@ reception::reception(sc_core::sc_module_name name, double period, sc_core::sc_ti
 	m_socket = new client_handler(this->name(), "localhost", "5015");
 #else
 	//m_socket = new client_handler(this->name(), "192.168.2.104", "28015");
-	m_socket = new client_handler(this->name(), "192.168.2.43", "5015");
+	m_socket = new client_handler(this->name(), "132.207.29.99", "5015");
 #endif
 }
 

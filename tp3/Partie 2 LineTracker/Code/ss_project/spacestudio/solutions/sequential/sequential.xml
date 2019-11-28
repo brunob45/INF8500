@@ -91,4 +91,5 @@
     </devices>
     <architectures>validation</architectures>
     <architectures>zynq</architectures>
+    <architectures>zynq_impl</architectures>
 </solution>

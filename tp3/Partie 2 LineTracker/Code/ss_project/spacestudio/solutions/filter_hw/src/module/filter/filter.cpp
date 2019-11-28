@@ -60,7 +60,9 @@ B:		for (int j = 0; j < width; j++){
 			// Computation of x and y: it correspond to the position of the corresponding input matrix
 			// element to the current mask element
 C:			for (int ky=0; ky < kernel_size; ky++){
+				#pragma HLS unroll
 D:				for (int kx = 0; kx < kernel_size; kx++){
+					#pragma HLS unroll
 						if (j + kx - kernel_half < 0){
 							x = 0;
 						} else {
